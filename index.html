@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TISA 智能決策引擎｜Investor Pitch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #07111f;
@@ -18,12 +20,11 @@
       --border: rgba(255, 255, 255, 0.12);
       --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
     }
-
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+      font-family: 'Sora', -apple-system, "Noto Sans TC", sans-serif;
       background:
         radial-gradient(circle at top left, rgba(31, 122, 255, 0.28), transparent 34%),
         radial-gradient(circle at top right, rgba(0, 199, 167, 0.18), transparent 30%),
@@ -31,572 +32,869 @@
       color: var(--text);
       line-height: 1.7;
     }
-
     a { color: inherit; text-decoration: none; }
 
+    /* ── Nav ── */
     .nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      position: sticky; top: 0; z-index: 10;
       backdrop-filter: blur(18px);
       background: rgba(7, 17, 31, 0.78);
       border-bottom: 1px solid var(--border);
     }
-
     .nav-inner {
-      max-width: 1180px;
-      margin: 0 auto;
+      max-width: 1180px; margin: 0 auto;
       padding: 14px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
+      display: flex; justify-content: space-between; align-items: center; gap: 20px;
     }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
-
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: 0.5px; }
     .brand-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
+      width: 12px; height: 12px; border-radius: 50%;
       background: linear-gradient(135deg, var(--blue), var(--green));
       box-shadow: 0 0 18px rgba(31, 122, 255, 0.85);
     }
-
-    .nav-links {
-      display: flex;
-      gap: 18px;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
+    .nav-links { display: flex; gap: 18px; font-size: 14px; color: var(--muted); }
     .nav-links a:hover { color: var(--text); }
 
-    .container {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .hero {
-      min-height: 88vh;
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      align-items: center;
-      gap: 44px;
-      padding: 78px 0 56px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border: 1px solid rgba(0, 199, 167, 0.45);
-      border-radius: 999px;
-      color: #9ff5e6;
-      background: rgba(0, 199, 167, 0.08);
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(42px, 7vw, 82px);
-      line-height: 1.02;
-      letter-spacing: -2.8px;
-    }
-
-    .gradient-text {
-      background: linear-gradient(135deg, #ffffff 10%, #6eb2ff 48%, #00c7a7 92%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero p {
-      max-width: 680px;
-      color: var(--muted);
-      font-size: 20px;
-      margin: 24px 0 34px;
-    }
-
-    .cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      align-items: center;
-    }
-
-    .btn {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 14px;
-      padding: 13px 18px;
-      font-weight: 800;
-      border: 1px solid var(--border);
-      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-    }
-
-    .btn:hover { transform: translateY(-2px); }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--blue), var(--green));
-      color: white;
-      border: 0;
-    }
-    .btn-secondary { color: var(--text); background: rgba(255,255,255,0.04); }
-
-    .hero-card {
-      background: linear-gradient(180deg, rgba(16, 29, 45, 0.96), rgba(12, 23, 38, 0.96));
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 28px;
-      box-shadow: var(--shadow);
-    }
-
-    .metric-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .metric {
-      padding: 20px;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      background: rgba(255,255,255,0.035);
-    }
-
-    .metric strong {
-      display: block;
-      font-size: 30px;
-      line-height: 1.2;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    .metric span { color: var(--muted); font-size: 14px; }
-    .metric.highlight { border-color: rgba(0, 199, 167, 0.58); }
-    .metric.orange { border-color: rgba(245, 166, 35, 0.55); }
-
+    /* ── Layout ── */
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
     section { padding: 74px 0; }
 
-    .section-title {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 24px;
-      margin-bottom: 28px;
+    /* ── Hero ── */
+    .hero {
+      min-height: 88vh;
+      display: grid; grid-template-columns: 1.05fr 0.95fr;
+      align-items: center; gap: 44px; padding: 78px 0 56px;
     }
-
-    .section-title h2 {
-      margin: 0;
-      font-size: clamp(30px, 4vw, 48px);
-      line-height: 1.15;
-      letter-spacing: -1px;
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid rgba(0, 199, 167, 0.45); border-radius: 999px;
+      color: #9ff5e6; background: rgba(0, 199, 167, 0.08);
+      font-size: 14px; font-weight: 700; margin-bottom: 18px;
     }
-
-    .section-title p {
-      color: var(--muted);
-      max-width: 500px;
-      margin: 0;
+    h1 {
+      margin: 0; font-family: 'DM Serif Display', serif;
+      font-size: clamp(42px, 7vw, 82px); line-height: 1.02; letter-spacing: -1.5px;
     }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 10%, #6eb2ff 48%, #00c7a7 92%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
-
-    .card {
-      background: rgba(16, 29, 45, 0.82);
+    .hero p { max-width: 680px; color: var(--muted); font-size: 20px; margin: 24px 0 34px; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .btn {
+      display: inline-flex; justify-content: center; align-items: center;
+      border-radius: 14px; padding: 13px 22px; font-weight: 700;
       border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 24px;
-      min-height: 240px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      font-family: 'Sora', sans-serif; font-size: 15px;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(31,122,255,0.25); }
+    .btn-primary { background: linear-gradient(135deg, var(--blue), var(--green)); color: white; border: 0; }
+    .btn-secondary { color: var(--text); background: rgba(255,255,255,0.04); }
+    .hero-card {
+      background: linear-gradient(180deg, rgba(16,29,45,0.96), rgba(12,23,38,0.96));
+      border: 1px solid var(--border); border-radius: 28px; padding: 28px; box-shadow: var(--shadow);
+    }
+    .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .metric {
+      padding: 20px; border: 1px solid var(--border); border-radius: 20px;
+      background: rgba(255,255,255,0.035);
+    }
+    .metric strong { display: block; font-size: 30px; line-height: 1.2; margin-bottom: 6px; }
+    .metric span { color: var(--muted); font-size: 14px; }
+    .metric.highlight { border-color: rgba(0,199,167,0.58); }
+    .metric.orange { border-color: rgba(245,166,35,0.55); }
+
+    /* ── Section titles ── */
+    .section-title { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+    .section-title h2 { margin: 0; font-size: clamp(30px,4vw,48px); line-height: 1.15; letter-spacing: -1px; font-family: 'DM Serif Display', serif; }
+    .section-title p { color: var(--muted); max-width: 500px; margin: 0; }
+
+    /* ── Cards ── */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card {
+      background: rgba(16,29,45,0.82); border: 1px solid var(--border);
+      border-radius: 24px; padding: 24px; min-height: 200px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.16);
     }
-
     .card.blue { border-top: 4px solid var(--blue); }
     .card.green { border-top: 4px solid var(--green); }
     .card.orange { border-top: 4px solid var(--orange); }
     .card.red { border-top: 4px solid var(--red); }
-
-    .icon {
-      font-size: 34px;
-      margin-bottom: 16px;
-    }
-
-    .card h3 {
-      margin: 0 0 12px;
-      font-size: 22px;
-    }
-
-    .card p, .card li { color: var(--muted); margin: 0; }
+    .icon { font-size: 34px; margin-bottom: 16px; }
+    .card h3 { margin: 0 0 12px; font-size: 20px; }
+    .card p, .card li { color: var(--muted); margin: 0; font-size: 15px; }
     ul { padding-left: 20px; margin: 0; }
 
-    .split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-      align-items: stretch;
-    }
-
+    /* ── Split / Panel ── */
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: stretch; }
     .panel {
-      background: rgba(16, 29, 45, 0.82);
-      border: 1px solid var(--border);
-      border-radius: 26px;
-      padding: 28px;
-      box-shadow: var(--shadow);
+      background: rgba(16,29,45,0.82); border: 1px solid var(--border);
+      border-radius: 26px; padding: 28px; box-shadow: var(--shadow);
     }
 
-    .table {
-      width: 100%;
-      border-collapse: collapse;
-      overflow: hidden;
-      border-radius: 18px;
-      font-size: 15px;
-    }
-
-    .table th, .table td {
-      padding: 14px 12px;
-      border-bottom: 1px solid var(--border);
-      text-align: center;
-    }
-
+    /* ── Table ── */
+    .table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    .table th, .table td { padding: 14px 12px; border-bottom: 1px solid var(--border); text-align: center; }
     .table th:first-child, .table td:first-child { text-align: left; }
     .table th { color: var(--muted); font-weight: 700; }
     .yes { color: var(--green); font-weight: 900; }
     .no { color: var(--red); font-weight: 900; }
     .mid { color: var(--orange); font-weight: 900; }
 
-    .flow {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 14px;
-    }
-
-    .flow-step {
-      text-align: center;
-      padding: 22px 14px;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      background: rgba(255,255,255,0.035);
-    }
-
+    /* ── Flow ── */
+    .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+    .flow-step { text-align: center; padding: 22px 14px; border: 1px solid var(--border); border-radius: 22px; background: rgba(255,255,255,0.035); }
     .flow-step .circle {
-      width: 66px;
-      height: 66px;
-      margin: 0 auto 14px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--blue), var(--green));
-      font-size: 28px;
+      width: 66px; height: 66px; margin: 0 auto 14px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--blue), var(--green)); font-size: 28px;
     }
 
-    .output-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 18px;
-    }
+    /* ── Output grid ── */
+    .output-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+    .big-output { padding: 22px; border-radius: 20px; border: 1px solid var(--border); background: rgba(0,0,0,0.18); }
+    .big-output strong { font-size: 38px; display: block; line-height: 1.1; }
 
-    .big-output {
-      padding: 22px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      background: rgba(0,0,0,0.18);
-    }
+    /* ── Progress bar ── */
+    .progress-bar { height: 14px; border-radius: 999px; background: rgba(255,255,255,0.12); overflow: hidden; margin-top: 8px; }
+    .progress-bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--blue), var(--green)); }
 
-    .big-output strong {
-      font-size: 38px;
-      display: block;
-      line-height: 1.1;
-    }
+    /* ── Timeline ── */
+    .timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 
-    .timeline {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .progress-bar {
-      height: 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.12);
-      overflow: hidden;
-      margin-top: 8px;
-    }
-
-    .progress-bar span {
-      display: block;
-      height: 100%;
-      background: linear-gradient(90deg, var(--blue), var(--green));
-    }
-
-    .footer-cta {
-      text-align: center;
-      padding: 74px 24px;
-      border-top: 1px solid var(--border);
-      background: rgba(0,0,0,0.16);
-    }
-
-    .footer-cta h2 {
-      font-size: clamp(32px, 5vw, 56px);
-      margin: 0 0 16px;
-      letter-spacing: -1.5px;
-    }
-
+    /* ── Footer CTA ── */
+    .footer-cta { text-align: center; padding: 74px 24px; border-top: 1px solid var(--border); background: rgba(0,0,0,0.16); }
+    .footer-cta h2 { font-size: clamp(32px,5vw,56px); margin: 0 0 16px; letter-spacing: -1.5px; font-family: 'DM Serif Display', serif; }
     .footer-cta p { color: var(--muted); margin: 0 auto 24px; max-width: 720px; }
 
-    @media (max-width: 900px) {
-      .hero, .split { grid-template-columns: 1fr; }
+    /* ════════════════════════════════════════════════
+       CALCULATOR SECTION
+    ════════════════════════════════════════════════ */
+    #calculator {
+      background: linear-gradient(180deg, rgba(31,122,255,0.06) 0%, transparent 100%);
+      border-top: 1px solid rgba(31,122,255,0.25);
+      border-bottom: 1px solid rgba(31,122,255,0.25);
+    }
+
+    .calc-wrapper {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start;
+    }
+
+    /* ── Input form ── */
+    .calc-form {
+      background: rgba(10,20,36,0.9); border: 1px solid var(--border);
+      border-radius: 26px; padding: 32px; box-shadow: var(--shadow);
+    }
+    .calc-form h3 {
+      margin: 0 0 6px; font-size: 22px; font-family: 'DM Serif Display', serif;
+      color: var(--text);
+    }
+    .calc-form .sub { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+    .input-group-label {
+      font-size: 12px; font-weight: 700; color: var(--blue);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin: 22px 0 10px; padding-bottom: 6px;
+      border-bottom: 1px solid rgba(31,122,255,0.2);
+    }
+
+    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 0; }
+
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    .field label { font-size: 13px; color: var(--muted); font-weight: 600; }
+    .field input, .field select {
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 14px; color: var(--text);
+      font-size: 15px; font-family: 'Sora', sans-serif;
+      outline: none; transition: border-color 0.2s;
+    }
+    .field input:focus, .field select:focus { border-color: var(--blue); background: rgba(31,122,255,0.08); }
+    .field select option { background: #101d2d; }
+    .field .hint { font-size: 12px; color: rgba(169,180,199,0.6); }
+
+    /* weight row */
+    .weight-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+    /* api-row removed — OpenAI key is backend-only */
+
+    /* GPU URL row */
+    .gpu-row {
+      display: flex; align-items: center; gap: 10px;
+      margin: 10px 0 0;
+      padding: 14px 16px;
+      background: rgba(0,199,167,0.07);
+      border: 1px solid rgba(0,199,167,0.3);
+      border-radius: 12px;
+    }
+    .gpu-row input {
+      flex: 1; background: transparent; border: none;
+      color: var(--text); font-size: 14px; font-family: 'Sora', sans-serif; outline: none;
+    }
+    .gpu-row label { font-size: 13px; color: var(--green); white-space: nowrap; font-weight: 700; }
+
+    .run-btn {
+      width: 100%; margin-top: 20px; padding: 16px;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      border: none; border-radius: 14px; color: white;
+      font-size: 16px; font-weight: 800; cursor: pointer;
+      font-family: 'Sora', sans-serif;
+      transition: opacity 0.2s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .run-btn:hover:not(:disabled) { transform: translateY(-2px); opacity: 0.92; }
+    .run-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ── Result panel ── */
+    .calc-result {
+      background: rgba(10,20,36,0.9); border: 1px solid var(--border);
+      border-radius: 26px; padding: 32px; box-shadow: var(--shadow);
+      min-height: 480px; display: flex; flex-direction: column;
+    }
+
+    .result-placeholder {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; color: var(--muted); gap: 16px;
+    }
+    .result-placeholder .big-icon { font-size: 56px; opacity: 0.4; }
+
+    /* status bar */
+    .status-bar {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-radius: 10px;
+      font-size: 13px; font-weight: 600; margin-bottom: 20px;
+    }
+    .status-bar.idle { background: rgba(255,255,255,0.04); color: var(--muted); }
+    .status-bar.running { background: rgba(31,122,255,0.12); color: #6eb2ff; }
+    .status-bar.success { background: rgba(0,199,167,0.1); color: var(--green); }
+    .status-bar.error { background: rgba(255,79,123,0.1); color: var(--red); }
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: currentColor; flex-shrink: 0;
+    }
+    .status-bar.running .status-dot { animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+    /* result metrics */
+    .result-top {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px;
+    }
+    .r-metric {
+      padding: 16px; border-radius: 16px; border: 1px solid var(--border);
+      background: rgba(0,0,0,0.2); text-align: center;
+    }
+    .r-metric .val { font-size: 32px; font-weight: 800; line-height: 1.1; display: block; }
+    .r-metric .lbl { font-size: 12px; color: var(--muted); margin-top: 4px; display: block; }
+    .r-metric.success-rate { border-color: rgba(0,199,167,0.4); }
+    .r-metric.success-rate .val { color: var(--green); }
+    .r-metric.mid-asset .val { color: var(--blue); }
+    .r-metric.worst-asset .val { color: var(--orange); }
+
+    /* risk badge */
+    .risk-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 16px; border-radius: 999px;
+      font-size: 14px; font-weight: 700; margin-bottom: 16px;
+    }
+    .risk-badge.safe { background: rgba(0,199,167,0.12); color: var(--green); border: 1px solid rgba(0,199,167,0.3); }
+    .risk-badge.warn { background: rgba(245,166,35,0.12); color: var(--orange); border: 1px solid rgba(245,166,35,0.3); }
+    .risk-badge.danger { background: rgba(255,79,123,0.12); color: var(--red); border: 1px solid rgba(255,79,123,0.3); }
+
+    /* sensitivity */
+    .sens-title { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin: 20px 0 10px; }
+    .sens-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 14px; border-radius: 12px;
+      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+      margin-bottom: 8px;
+    }
+    .sens-rank {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      display: grid; place-items: center; font-size: 12px; font-weight: 800;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .sens-item .s-label { font-size: 14px; font-weight: 600; }
+    .sens-item .s-detail { font-size: 13px; color: var(--muted); }
+    .sens-item .s-rate { font-size: 13px; color: var(--green); font-weight: 700; margin-top: 2px; }
+
+    /* AI advice */
+    .ai-advice {
+      margin-top: 16px; padding: 16px 18px;
+      background: rgba(31,122,255,0.06); border: 1px solid rgba(31,122,255,0.2);
+      border-radius: 14px;
+    }
+    .ai-advice .ai-header { font-size: 13px; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
+    .ai-advice .ai-text { font-size: 14px; color: var(--muted); line-height: 1.75; white-space: pre-wrap; }
+
+    /* bankrupt stats */
+    .bk-stats {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 12px;
+    }
+    .bk-item { padding: 10px; border-radius: 10px; background: rgba(255,79,123,0.06); border: 1px solid rgba(255,79,123,0.15); text-align: center; }
+    .bk-item .bv { font-size: 20px; font-weight: 800; color: var(--red); }
+    .bk-item .bl { font-size: 11px; color: var(--muted); }
+
+    /* ── GPU setup section ── */
+    #gpu-setup {
+      background: linear-gradient(135deg, rgba(0,199,167,0.05), rgba(31,122,255,0.05));
+    }
+    .gpu-steps {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 8px;
+    }
+    .gpu-step {
+      padding: 22px; border: 1px solid var(--border); border-radius: 20px;
+      background: rgba(255,255,255,0.03); text-align: center;
+    }
+    .gpu-step .step-num {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg,var(--blue),var(--green));
+      display: grid; place-items: center; margin: 0 auto 14px;
+      font-size: 16px; font-weight: 800;
+    }
+    .gpu-step h4 { margin: 0 0 8px; font-size: 15px; }
+    .gpu-step p { color: var(--muted); font-size: 13px; margin: 0; }
+    .code-pill {
+      display: inline-block; background: rgba(31,122,255,0.15);
+      border: 1px solid rgba(31,122,255,0.3); border-radius: 8px;
+      padding: 3px 10px; font-size: 12px; font-family: 'Courier New', monospace;
+      color: #6eb2ff; margin-top: 6px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 960px) {
+      .hero, .split, .calc-wrapper { grid-template-columns: 1fr; }
       .cards, .timeline, .output-grid { grid-template-columns: 1fr; }
-      .flow { grid-template-columns: 1fr 1fr; }
+      .flow, .gpu-steps { grid-template-columns: 1fr 1fr; }
       .nav-links { display: none; }
       .section-title { display: block; }
       .section-title p { margin-top: 12px; }
+      .result-top { grid-template-columns: 1fr 1fr; }
+      .bk-stats { grid-template-columns: 1fr 1fr; }
     }
-
     @media (max-width: 560px) {
-      .metric-grid, .flow { grid-template-columns: 1fr; }
-      .container { padding: 0 18px; }
-      section { padding: 54px 0; }
-      .hero { padding-top: 48px; }
-      .hero-card, .panel, .card { border-radius: 20px; }
+      .metric-grid, .flow, .gpu-steps { grid-template-columns: 1fr; }
+      .input-row { grid-template-columns: 1fr; }
+      .weight-row { grid-template-columns: 1fr 1fr; }
+      .container { padding: 0 16px; }
+      section { padding: 48px 0; }
+      .result-top { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="#top" class="brand"><span class="brand-dot"></span>TISA 智能決策引擎</a>
-      <div class="nav-links">
-        <a href="#problem">問題</a>
-        <a href="#solution">解決方案</a>
-        <a href="#product">產品</a>
-        <a href="#business">商業模式</a>
-        <a href="#funding">募資</a>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand"><span class="brand-dot"></span>TISA 智能決策引擎</a>
+    <div class="nav-links">
+      <a href="#problem">問題</a>
+      <a href="#solution">解決方案</a>
+      <a href="#calculator">立即試算</a>
+      <a href="#gpu-setup">GPU 設定</a>
+      <a href="#business">商業模式</a>
+      <a href="#funding">募資</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top" class="container">
+
+  <!-- ══════════════ HERO ══════════════ -->
+  <section class="hero">
+    <div>
+      <div class="badge">Turning Uncertainty into Actionable Probability</div>
+      <h1><span class="gradient-text">TISA</span><br />智能決策引擎</h1>
+      <p>為台灣投資者量身設計的機率導向決策系統，透過 Monte Carlo 模擬、台灣退休制度整合與 AI 推理建議，把不確定性轉換成可執行的投資決策。</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#calculator">▶ 立即試算（GPU 版）</a>
+        <a class="btn btn-secondary" href="#solution">看解決方案</a>
+        <a class="btn btn-secondary" href="#funding">募資計畫</a>
       </div>
     </div>
-  </nav>
+    <div class="hero-card">
+      <div class="metric-grid">
+        <div class="metric highlight"><strong>NT$140億</strong><span>目前市場規模</span></div>
+        <div class="metric"><strong>Monte Carlo</strong><span>核心技術優勢</span></div>
+        <div class="metric orange"><strong>B2B + B2C</strong><span>SaaS 訂閱 + 平台授權</span></div>
+        <div class="metric highlight"><strong>GPU 加速</strong><span>CuPy × 100萬路徑模擬</span></div>
+      </div>
+    </div>
+  </section>
 
-  <main id="top" class="container">
-    <section class="hero">
+  <!-- ══════════════ PROBLEM ══════════════ -->
+  <section id="problem">
+    <div class="section-title">
+      <h2>問題：TISA 解決了投資容器，<br />但沒有解決投資決策</h2>
+      <p>資金有了去處，但投資人仍不知道如何做對的決策；退休規劃不能只靠單一報酬率假設。</p>
+    </div>
+    <div class="cards">
+      <div class="card red"><div class="icon">😰</div><h3>人口老化 × 退休壓力</h3><p>TISA 帳戶持有者需要自行承擔長達 20–30 年的退休決策風險。</p></div>
+      <div class="card orange"><div class="icon">🎯</div><h3>行為偏誤：單一路徑思維</h3><p>固定報酬率會掩蓋市場波動與序列風險，讓規劃看似穩定，實際卻可能失真。</p></div>
+      <div class="card blue"><div class="icon">🕳️</div><h3>現有工具不足</h3><p>理專建議可能有利益衝突；Robo-advisor 缺乏個人化；政府計算機過度簡化。</p></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ INSIGHT ══════════════ -->
+  <section id="insight">
+    <div class="split">
+      <div class="panel">
+        <h2 style="font-family:'DM Serif Display',serif;margin-top:0">核心洞察</h2>
+        <h3>錯誤的不是資金，而是決策方式</h3>
+        <ul>
+          <li>投資人普遍用「單一數字」規劃退休。</li>
+          <li>序列風險可能讓相同平均報酬的計畫產生巨大差異。</li>
+          <li>機率導向工具能讓投資人理解規劃是否合適。</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h2 style="font-family:'DM Serif Display',serif;margin-top:0">市場空白</h2>
+        <table class="table">
+          <thead><tr><th>工具</th><th>機率模擬</th><th>在地化</th><th>中立性</th></tr></thead>
+          <tbody>
+            <tr><td>理專</td><td class="no">✕</td><td class="mid">△</td><td class="no">✕</td></tr>
+            <tr><td>Robo</td><td class="mid">△</td><td class="no">✕</td><td class="mid">△</td></tr>
+            <tr><td>政府計算機</td><td class="no">✕</td><td class="mid">△</td><td class="yes">✓</td></tr>
+            <tr><td><strong>TISA 引擎</strong></td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ SOLUTION ══════════════ -->
+  <section id="solution">
+    <div class="section-title">
+      <h2>解決方案：TISA 專用智能決策引擎</h2>
+      <p>不是給投資人一個單一答案，而是給出完整的機率分布、風險底線與可調整的行動槓桿。</p>
+    </div>
+    <div class="cards">
+      <div class="card blue"><h3>01｜Monte Carlo 機率引擎</h3><p>GPU 加速執行 100 萬條情境模擬，呈現完整的未來資產機率分布，而非單一預測數字。</p></div>
+      <div class="card green"><h3>02｜台灣在地化模組</h3><p>整合勞保年金、勞退新制與通膨折現，解決海外工具無法套用台灣制度的問題。</p></div>
+      <div class="card orange"><h3>03｜AI 推理建議引擎</h3><p>透過敏感度分析，辨識退休年齡、儲蓄率、資產配置等關鍵槓桿，輸出可執行建議。</p></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ PRODUCT ══════════════ -->
+  <section id="product">
+    <div class="section-title">
+      <h2>產品體驗：從輸入到決策</h2>
+      <p>把複雜退休規劃拆成清楚流程，讓使用者理解「現在的選擇」如何影響「未來的機率」。</p>
+    </div>
+    <div class="flow">
+      <div class="flow-step"><div class="circle">📝</div><h3>輸入</h3><p>年齡、資產、薪資、風險偏好、勞保年資</p></div>
+      <div class="flow-step"><div class="circle">⚙️</div><h3>GPU 模擬</h3><p>CuPy × 100萬條 Monte Carlo 路徑</p></div>
+      <div class="flow-step"><div class="circle">🇹🇼</div><h3>在地計算</h3><p>勞保／勞退與通膨折現</p></div>
+      <div class="flow-step"><div class="circle">📊</div><h3>輸出</h3><p>成功率、P10 / P50 / P90</p></div>
+      <div class="flow-step"><div class="circle">💡</div><h3>建議</h3><p>情境導向行動建議</p></div>
+    </div>
+    <div class="output-grid">
+      <div class="big-output"><strong style="color:var(--green)">88%</strong><span>規劃達標機率</span></div>
+      <div class="big-output"><strong style="color:var(--blue)">$8.2M</strong><span>中位數資產</span></div>
+      <div class="big-output"><strong style="color:var(--orange)">$2.1M</strong><span>最壞情境底線</span></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ CALCULATOR ══════════════ -->
+  <section id="calculator">
+    <div class="section-title">
+      <h2>立即試算 — GPU 加速版</h2>
+      <p>填入個人參數，連線 Colab GPU 後端，即時跑 100 萬條 Monte Carlo 路徑。</p>
+    </div>
+
+    <div class="calc-wrapper">
+      <!-- LEFT: Input form -->
+      <div class="calc-form">
+        <h3>輸入參數</h3>
+        <p class="sub">填完後點擊「開始模擬」，結果將顯示在右側。</p>
+
+        <div class="input-group-label">📅 基本資料</div>
+        <div class="input-row">
+          <div class="field"><label>目前年齡</label><input type="number" id="f_current_age" value="25" min="20" max="60"><span class="hint">歲</span></div>
+          <div class="field"><label>預計退休年齡</label><input type="number" id="f_retirement_age" value="65" min="40" max="80"><span class="hint">歲</span></div>
+        </div>
+        <div class="input-row">
+          <div class="field"><label>預計壽命</label><input type="number" id="f_life_expectancy" value="85" min="60" max="100"><span class="hint">歲</span></div>
+        </div>
+
+        <div class="input-group-label">💰 財務狀況</div>
+        <div class="input-row">
+          <div class="field"><label>目前資產（元）</label><input type="number" id="f_current_assets" value="2000000"><span class="hint">台幣</span></div>
+          <div class="field"><label>每月可投資（元）</label><input type="number" id="f_monthly_invest" value="30000"><span class="hint">台幣</span></div>
+        </div>
+        <div class="input-row">
+          <div class="field"><label>月投資年成長率</label><input type="number" id="f_invest_growth" value="0.03" step="0.01"><span class="hint">例：0.03 = 3%</span></div>
+          <div class="field"><label>退休後每月支出（現值）</label><input type="number" id="f_monthly_expense" value="60000"><span class="hint">台幣</span></div>
+        </div>
+
+        <div class="input-group-label">🏛 勞保</div>
+        <div class="input-row">
+          <div class="field"><label>勞保預計年資</label><input type="number" id="f_insure_years" value="35"><span class="hint">年</span></div>
+          <div class="field"><label>平均月投保薪資</label><input type="number" id="f_insure_wage" value="45000"><span class="hint">元</span></div>
+        </div>
+        <div class="input-row">
+          <div class="field"><label>勞保請領年齡</label><input type="number" id="f_insure_start" value="65"><span class="hint">法定 65 歲</span></div>
+        </div>
+
+        <div class="input-group-label">📦 勞退</div>
+        <div class="input-row">
+          <div class="field"><label>勞退帳戶餘額</label><input type="number" id="f_pension_balance" value="0"><span class="hint">元</span></div>
+          <div class="field"><label>月提繳工資</label><input type="number" id="f_pension_wage" value="45000"><span class="hint">元</span></div>
+        </div>
+        <div class="input-row">
+          <div class="field"><label>個人自提率</label><input type="number" id="f_self_contrib" value="0" step="0.01" min="0" max="0.06"><span class="hint">0–0.06</span></div>
+        </div>
+
+        <div class="input-group-label">📊 資產配置（三項合計須為 1）</div>
+        <div class="weight-row">
+          <div class="field"><label>股票（台股）</label><input type="number" id="f_stock" value="0.7" step="0.05" min="0" max="1"></div>
+          <div class="field"><label>債券（AGG）</label><input type="number" id="f_bond" value="0.2" step="0.05" min="0" max="1"></div>
+          <div class="field"><label>現金（定存）</label><input type="number" id="f_cash" value="0.1" step="0.05" min="0" max="1"></div>
+        </div>
+        <div id="weight-warn" style="display:none;font-size:12px;color:var(--red);margin-bottom:8px;">⚠️ 三項加總必須等於 1</div>
+
+        <!-- GPU URL -->
+        <div class="gpu-row">
+          <label>🚀 Colab GPU URL</label>
+          <input type="text" id="f_gpu_url" value="https://YOUR_NGROK_URL.ngrok-free.app">
+        </div>
+
+
+
+        <button class="run-btn" id="run-btn" onclick="runSimulation()">
+          ▶ 開始模擬（GPU）
+        </button>
+      </div>
+
+      <!-- RIGHT: Result -->
+      <div class="calc-result" id="result-panel">
+        <div id="result-placeholder" class="result-placeholder">
+          <div class="big-icon">🎲</div>
+          <div>
+            <div style="font-size:18px;font-weight:700;margin-bottom:8px">等待試算</div>
+            <div style="font-size:14px">填妥左側參數並啟動 Colab GPU 後端<br>即可開始 100 萬條路徑的模擬</div>
+          </div>
+        </div>
+        <div id="result-content" style="display:none;flex:1;display:flex;flex-direction:column;gap:0"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ GPU SETUP ══════════════ -->
+  <section id="gpu-setup">
+    <div class="section-title">
+      <h2>如何啟動 GPU 後端</h2>
+      <p>只需 4 步，用 Google Colab 免費 T4 GPU 當運算後端，讓網頁連線使用。</p>
+    </div>
+    <div class="gpu-steps">
+      <div class="gpu-step">
+        <div class="step-num">1</div>
+        <h4>開啟 Colab</h4>
+        <p>上傳 <code style="font-size:12px">model_gpu.ipynb</code> 到 Google Colab</p>
+        <div class="code-pill">Runtime → T4 GPU</div>
+      </div>
+      <div class="gpu-step">
+        <div class="step-num">2</div>
+        <h4>安裝 ngrok</h4>
+        <p>在 Colab 第一格執行安裝指令</p>
+        <div class="code-pill">!pip install pyngrok fastapi uvicorn nest-asyncio -q</div>
+      </div>
+      <div class="gpu-step">
+        <div class="step-num">3</div>
+        <h4>跑 API Server</h4>
+        <p>執行附帶的 <code style="font-size:12px">## 🌐 API Server</code> Cell，啟動 FastAPI + ngrok tunnel</p>
+        <div class="code-pill">取得 https://xxxx.ngrok-free.app</div>
+      </div>
+      <div class="gpu-step">
+        <div class="step-num">4</div>
+        <h4>貼入網頁</h4>
+        <p>把 ngrok URL 貼到上方「Colab GPU URL」欄位，點擊開始模擬</p>
+        <div class="code-pill">試算結果即時顯示 ✓</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ BUSINESS ══════════════ -->
+  <section id="business">
+    <div class="section-title">
+      <h2>商業模式：兩層收入引擎</h2>
+      <p>B2B 建立機構長約與公信力，TISA 平台整合帶來低獲客成本與規模放大。</p>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <h2 style="font-family:'DM Serif Display',serif;margin-top:0">B2B SaaS</h2>
+        <p><strong>客戶：</strong>銀行、券商、壽險公司</p>
+        <p><strong>定價：</strong>API 授權</p>
+        <p style="color:var(--muted)">透過第三方機率模型，將傳統主觀建議轉為可驗證的決策依據，提升客戶信任並降低錯配風險與銷售爭議。</p>
+        <ul><li style="color:var(--muted)">低流失率</li><li style="color:var(--muted)">高客單價</li><li style="color:var(--muted)">監管合規護城河</li></ul>
+      </div>
+      <div class="panel">
+        <h2 style="font-family:'DM Serif Display',serif;margin-top:0">TISA 平台整合</h2>
+        <p><strong>客戶：</strong>TISA 平台業者</p>
+        <p><strong>定價：</strong>分潤 + 嵌入式服務</p>
+        <p style="color:var(--muted)">在用戶投資決策前植入決策引擎，協助投資人理解不同方案下的成功率與風險底線。</p>
+        <ul><li style="color:var(--muted)">零獲客成本</li><li style="color:var(--muted)">規模自動放大</li><li style="color:var(--muted)">生態系護城河</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ MARKET ══════════════ -->
+  <section id="market">
+    <div class="section-title">
+      <h2>市場規模：TISA × 高齡化 × 財富管理</h2>
+      <p>退休規劃需求、個人投資帳戶制度與金融機構數位化，形成三重催化。</p>
+    </div>
+    <div class="cards">
+      <div class="card blue"><h3>NT$140億</h3><p>台灣財富管理 × 退休規劃市場</p></div>
+      <div class="card green"><h3>NT$85億</h3><p>TISA 帳戶持有者 × 決策工具需求</p></div>
+      <div class="card orange"><h3>NT$8.5億</h3><p>第一年目標：10 家機構 + 3 萬 B2C 用戶</p></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ MILESTONE ══════════════ -->
+  <section id="milestone">
+    <div class="section-title">
+      <h2>進度與里程碑</h2>
+      <p>MVP 完成後，18 個月內推進 B2B 合約、B2C App 與後續募資。</p>
+    </div>
+    <div class="cards">
+      <div class="card green"><h3>✅ MVP 完成</h3><p>Monte Carlo 引擎 + 台灣在地化模組</p></div>
+      <div class="card green"><h3>✅ 3 家機構洽談</h3><p>2 家銀行、1 家壽險 POC 進行中</p></div>
+      <div class="card green"><h3>✅ 300 人 Beta</h3><p>NPS 72 分，付費意願 62%</p></div>
+    </div>
+    <div class="timeline" style="margin-top:18px">
+      <div class="panel"><h3>Q3 2026</h3><ul><li style="color:var(--muted)">完成 3 家 B2B POC 轉正式合約</li><li style="color:var(--muted)">B2C App 上線</li><li style="color:var(--muted)">工程團隊擴編至 8 人</li></ul></div>
+      <div class="panel"><h3>Q4 2026</h3><ul><li style="color:var(--muted)">B2B 客戶擴展至 10 家</li><li style="color:var(--muted)">B2C MAU 達 1 萬</li><li style="color:var(--muted)">Series A 準備</li></ul></div>
+      <div class="panel"><h3>2027</h3><ul><li style="color:var(--muted)">市場領導地位鞏固</li><li style="color:var(--muted)">探索東南亞市場</li><li style="color:var(--muted)">年收入達 NT$3,000 萬</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ FUNDING ══════════════ -->
+  <section id="funding">
+    <div class="section-title">
+      <h2>募資計畫：Series A NT$5,000萬</h2>
+      <p>資金將用於產品研發、業務拓展、B2C 市場行銷與營運法遵。</p>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <h2 style="font-family:'DM Serif Display',serif;margin-top:0">本輪募資</h2>
+        <h3 style="font-size:48px;margin:0;color:var(--blue)">NT$5,000萬</h3>
+        <ul style="margin-top:16px">
+          <li style="color:var(--muted)">10 家 B2B 機構合約</li>
+          <li style="color:var(--muted)">1 萬 B2C 活躍用戶</li>
+          <li style="color:var(--muted)">月收入 NT$250 萬</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h2 style="font-family:'DM Serif Display',serif;margin-top:0">資金用途分配</h2>
+        <p>產品研發 40%</p><div class="progress-bar"><span style="width:40%"></span></div>
+        <p>業務拓展 30%</p><div class="progress-bar"><span style="width:30%"></span></div>
+        <p>市場行銷 20%</p><div class="progress-bar"><span style="width:20%"></span></div>
+        <p>營運與法遵 10%</p><div class="progress-bar"><span style="width:10%"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ WHY ══════════════ -->
+  <section id="why">
+    <div class="section-title">
+      <h2>為什麼是我們？</h2>
+      <p>核心優勢來自技術、制度時機、B2B 嵌入與可複製的地域擴張。</p>
+    </div>
+    <div class="cards">
+      <div class="card blue"><h3>技術護城河</h3><p>整合 Monte Carlo + GPU 加速與台灣退休制度在地化的決策引擎。</p></div>
+      <div class="card green"><h3>監管先行者優勢</h3><p>TISA 制度上路初期，先行者將掌握機構長約與用戶習慣。</p></div>
+      <div class="card orange"><h3>B2B 關係護城河</h3><p>金融機構一旦嵌入決策引擎，轉換成本高。</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer-cta">
+  <h2>成為 TISA 生態系中的標準決策引擎</h2>
+  <p>讓每一位投資者在投入資金前，都能看見成功率、風險底線與可執行的改善方向。</p>
+  <a class="btn btn-primary" href="#calculator">▶ 立即試算</a>
+</footer>
+
+<!-- ══════════════ JS ══════════════ -->
+<script>
+// ── Weight validation ──────────────────────────────────────────────
+['f_stock','f_bond','f_cash'].forEach(id => {
+  document.getElementById(id).addEventListener('input', checkWeights);
+});
+function checkWeights() {
+  const s = parseFloat(document.getElementById('f_stock').value)||0;
+  const b = parseFloat(document.getElementById('f_bond').value)||0;
+  const c = parseFloat(document.getElementById('f_cash').value)||0;
+  const warn = document.getElementById('weight-warn');
+  warn.style.display = Math.abs(s+b+c-1) > 0.001 ? 'block' : 'none';
+}
+
+// ── Status helpers ─────────────────────────────────────────────────
+function setStatus(type, msg) {
+  const panel = document.getElementById('result-panel');
+  let bar = panel.querySelector('.status-bar');
+  if (!bar) {
+    bar = document.createElement('div');
+    panel.insertBefore(bar, panel.firstChild);
+  }
+  bar.className = `status-bar ${type}`;
+  bar.innerHTML = `<span class="status-dot"></span>${msg}`;
+}
+
+function showPlaceholder(show) {
+  document.getElementById('result-placeholder').style.display = show ? 'flex' : 'none';
+  document.getElementById('result-content').style.display   = show ? 'none' : 'flex';
+}
+
+function fmt(n) {
+  if (n >= 1e8)  return (n/1e8).toFixed(2) + ' 億';
+  if (n >= 1e4)  return (n/1e4).toFixed(1) + ' 萬';
+  return Math.round(n).toLocaleString();
+}
+
+// ── Main simulation call ───────────────────────────────────────────
+async function runSimulation() {
+  // Validate weights
+  const s = parseFloat(document.getElementById('f_stock').value)||0;
+  const b = parseFloat(document.getElementById('f_bond').value)||0;
+  const c = parseFloat(document.getElementById('f_cash').value)||0;
+  if (Math.abs(s+b+c-1) > 0.001) {
+    alert('資產配置三項合計必須等於 1！');
+    return;
+  }
+
+  const gpuUrl = document.getElementById('f_gpu_url').value.trim().replace(/\/+$/, '');
+  if (!gpuUrl) {
+    alert('請先填入 Colab GPU URL！\n\n尚未設定後端？請先查看下方「如何啟動 GPU 後端」說明。');
+    return;
+  }
+
+  const btn = document.getElementById('run-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ 模擬中...';
+  showPlaceholder(false);
+  document.getElementById('result-content').innerHTML = '';
+  setStatus('running', 'GPU 模擬中，正在跑 100 萬條路徑...');
+
+  const payload = {
+    current_age:           parseInt(document.getElementById('f_current_age').value),
+    retirement_age:        parseInt(document.getElementById('f_retirement_age').value),
+    life_expectancy:       parseInt(document.getElementById('f_life_expectancy').value),
+    current_assets:        parseFloat(document.getElementById('f_current_assets').value),
+    monthly_invest:        parseFloat(document.getElementById('f_monthly_invest').value),
+    monthly_invest_growth: parseFloat(document.getElementById('f_invest_growth').value),
+    monthly_expense_now:   parseFloat(document.getElementById('f_monthly_expense').value),
+    labor_insure_years:    parseInt(document.getElementById('f_insure_years').value),
+    avg_monthly_insured:   parseFloat(document.getElementById('f_insure_wage').value),
+    labor_insure_start_age:parseInt(document.getElementById('f_insure_start').value),
+    labor_pension_balance: parseFloat(document.getElementById('f_pension_balance').value),
+    monthly_contrib_wage:  parseFloat(document.getElementById('f_pension_wage').value),
+    self_contrib_rate:     parseFloat(document.getElementById('f_self_contrib').value),
+    stock_weight: s, bond_weight: b, cash_weight: c,
+    // openai_key 已從前端移除，Key 只存在 Colab 後端
+  };
+
+  try {
+    const res = await fetch(`${gpuUrl}/simulate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+
+    if (data.status === 'error') throw new Error(data.message);
+
+    renderResult(data, payload);
+    setStatus('success', `✅ 模擬完成｜GPU 後端：${gpuUrl.replace('https://','').split('.')[0]}...`);
+  } catch (e) {
+    setStatus('error', `❌ 錯誤：${e.message}`);
+    document.getElementById('result-content').innerHTML =
+      `<div style="padding:20px;color:var(--red);font-size:14px;white-space:pre-wrap">${e.message}\n\n請確認：\n1. Colab 已開啟並執行 API Server Cell\n2. ngrok URL 正確（含 https://）\n3. Colab session 未逾時</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '▶ 開始模擬（GPU）';
+  }
+}
+
+// ── Render result ──────────────────────────────────────────────────
+function renderResult(data, p) {
+  const rate = data.success_rate;
+  const bk   = data.bankrupt_ages || [];
+  const sens = data.sensitivity   || [];
+
+  // Risk level
+  let riskClass, riskLabel;
+  if (rate >= 0.9)      { riskClass='safe';   riskLabel='✅ 安全'; }
+  else if (rate >= 0.7) { riskClass='warn';   riskLabel='⚠️ 輕微風險'; }
+  else                  { riskClass='danger'; riskLabel='🚨 高風險'; }
+
+  // Bankrupt stats
+  let bkHtml = '';
+  if (bk.length > 0) {
+    const mean = bk.reduce((a,x)=>a+x,0)/bk.length;
+    const min  = Math.min(...bk);
+    const med  = bk.slice().sort((a,b)=>a-b)[Math.floor(bk.length/2)];
+    bkHtml = `
+      <div style="font-size:13px;color:var(--muted);margin-bottom:6px">破產路徑統計（${bk.length.toLocaleString()} 條）</div>
+      <div class="bk-stats">
+        <div class="bk-item"><div class="bv">${mean.toFixed(1)}</div><div class="bl">平均破產年齡</div></div>
+        <div class="bk-item"><div class="bv">${min.toFixed(0)}</div><div class="bl">最早破產年齡</div></div>
+        <div class="bk-item"><div class="bv">${med.toFixed(0)}</div><div class="bl">中位破產年齡</div></div>
+      </div>`;
+  } else {
+    bkHtml = `<div style="font-size:14px;color:var(--green);padding:10px 0">🎉 所有模擬路徑均成功，無破產發生</div>`;
+  }
+
+  // Sensitivity
+  const sensHtml = sens.map((item, i) => `
+    <div class="sens-item">
+      <div class="sens-rank">${i+1}</div>
       <div>
-        <div class="badge">Turning Uncertainty into Actionable Probability</div>
-        <h1><span class="gradient-text">TISA</span><br />智能決策引擎</h1>
-        <p>為台灣 TISA 投資者量身設計的機率導向決策系統，透過 Monte Carlo 模擬、台灣退休制度整合與 AI 推理建議，把不確定性轉換成可執行的投資決策。</p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="#solution">看解決方案</a>
-          <a class="btn btn-secondary" href="#funding">查看募資計畫</a>
-        </div>
+        <div class="s-label">${item.label}</div>
+        ${item.detail ? `<div class="s-detail">${item.detail}</div>` : ''}
+        <div class="s-rate">調整後成功率 ${(item.new_rate*100).toFixed(1)}%（改善 ${(item.improvement*100>0?'+':'')}${(item.improvement*100).toFixed(1)}%）</div>
       </div>
-      <div class="hero-card">
-        <div class="metric-grid">
-          <div class="metric highlight"><strong>NT$140億</strong><span>目前市場規模</span></div>
-          <div class="metric"><strong>Monte Carlo</strong><span>核心技術優勢</span></div>
-          <div class="metric orange"><strong>B2B + B2C</strong><span>SaaS 訂閱 + 平台授權</span></div>
-          <div class="metric highlight"><strong>88%</strong><span>規劃達標機率示範</span></div>
-        </div>
-      </div>
-    </section>
+    </div>`).join('');
 
-    <section id="problem">
-      <div class="section-title">
-        <h2>問題：TISA 解決了投資容器，<br />但沒有解決投資決策</h2>
-        <p>資金有了去處，但投資人仍不知道如何做對的決策；退休規劃不能只靠單一報酬率假設。</p>
-      </div>
-      <div class="cards">
-        <div class="card red">
-          <div class="icon">😰</div>
-          <h3>人口老化 × 退休壓力</h3>
-          <p>TISA 帳戶持有者需要自行承擔長達 20–30 年的退休決策風險。</p>
-        </div>
-        <div class="card orange">
-          <div class="icon">🎯</div>
-          <h3>行為偏誤：單一路徑思維</h3>
-          <p>固定報酬率會掩蓋市場波動與序列風險，讓規劃看似穩定，實際卻可能失真。</p>
-        </div>
-        <div class="card blue">
-          <div class="icon">🕳️</div>
-          <h3>現有工具不足</h3>
-          <p>理專建議可能有利益衝突；Robo-advisor 缺乏個人化；政府計算機過度簡化。</p>
-        </div>
-      </div>
-    </section>
+  // AI advice
+  const aiHtml = data.ai_advice ? `
+    <div class="ai-advice">
+      <div class="ai-header">🤖 AI 綜合建議</div>
+      <div class="ai-text">${data.ai_advice}</div>
+    </div>` : '';
 
-    <section id="insight">
-      <div class="split">
-        <div class="panel">
-          <h2>核心洞察</h2>
-          <h3>錯誤的不是資金，而是決策方式</h3>
-          <ul>
-            <li>投資人普遍用「單一數字」規劃退休。</li>
-            <li>序列風險可能讓相同平均報酬的計畫產生巨大差異。</li>
-            <li>機率導向工具能讓投資人理解規劃是否合適。</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h2>市場空白</h2>
-          <table class="table">
-            <thead>
-              <tr><th>工具</th><th>機率模擬</th><th>在地化</th><th>中立性</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>理專</td><td class="no">✕</td><td class="mid">△</td><td class="no">✕</td></tr>
-              <tr><td>Robo</td><td class="mid">△</td><td class="no">✕</td><td class="mid">△</td></tr>
-              <tr><td>政府計算機</td><td class="no">✕</td><td class="mid">△</td><td class="yes">✓</td></tr>
-              <tr><td><strong>TISA 引擎</strong></td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
+  document.getElementById('result-content').style.display = 'flex';
+  document.getElementById('result-content').innerHTML = `
+    <div class="risk-badge ${riskClass}">${riskLabel}｜成功率 ${(rate*100).toFixed(1)}%</div>
 
-    <section id="solution">
-      <div class="section-title">
-        <h2>解決方案：TISA 專用智能決策引擎</h2>
-        <p>不是給投資人一個單一答案，而是給出完整的機率分布、風險底線與可調整的行動槓桿。</p>
+    <div class="result-top">
+      <div class="r-metric success-rate">
+        <span class="val">${(rate*100).toFixed(1)}%</span>
+        <span class="lbl">退休成功率</span>
       </div>
-      <div class="cards">
-        <div class="card blue">
-          <h3>01｜Monte Carlo 機率引擎</h3>
-          <p>執行多次情境模擬，呈現完整的未來資產機率分布，而非單一預測數字。</p>
-        </div>
-        <div class="card green">
-          <h3>02｜台灣在地化模組</h3>
-          <p>整合勞保年金、勞退新制與通膨折現，解決海外工具無法套用台灣制度的問題。</p>
-        </div>
-        <div class="card orange">
-          <h3>03｜AI 推理建議引擎</h3>
-          <p>透過敏感度分析，辨識退休年齡、儲蓄率、資產配置等關鍵槓桿，輸出可執行建議。</p>
-        </div>
+      <div class="r-metric mid-asset">
+        <span class="val">${fmt(data.lp_at_retire||0)}</span>
+        <span class="lbl">勞退帳戶餘額</span>
       </div>
-    </section>
+      <div class="r-metric worst-asset">
+        <span class="val">${fmt(data.monthly_li||0)}</span>
+        <span class="lbl">勞保月領（元）</span>
+      </div>
+    </div>
 
-    <section id="product">
-      <div class="section-title">
-        <h2>產品體驗：從輸入到決策</h2>
-        <p>把複雜退休規劃拆成清楚流程，讓使用者理解「現在的選擇」如何影響「未來的機率」。</p>
-      </div>
-      <div class="flow">
-        <div class="flow-step"><div class="circle">📝</div><h3>輸入</h3><p>年齡、資產、薪資、風險偏好、勞保年資</p></div>
-        <div class="flow-step"><div class="circle">⚙️</div><h3>模擬</h3><p>Monte Carlo 情境生成</p></div>
-        <div class="flow-step"><div class="circle">🇹🇼</div><h3>在地計算</h3><p>勞保／勞退與通膨折現</p></div>
-        <div class="flow-step"><div class="circle">📊</div><h3>輸出</h3><p>成功率、P10 / P50 / P90</p></div>
-        <div class="flow-step"><div class="circle">💡</div><h3>建議</h3><p>情境導向行動建議</p></div>
-      </div>
-      <div class="output-grid">
-        <div class="big-output"><strong style="color:var(--green)">88%</strong><span>規劃達標機率</span></div>
-        <div class="big-output"><strong style="color:var(--blue)">$8.2M</strong><span>中位數資產</span></div>
-        <div class="big-output"><strong style="color:var(--orange)">$2.1M</strong><span>最壞情境底線</span></div>
-      </div>
-    </section>
+    ${bkHtml}
 
-    <section id="business">
-      <div class="section-title">
-        <h2>商業模式：兩層收入引擎</h2>
-        <p>B2B 建立機構長約與公信力，TISA 平台整合帶來低獲客成本與規模放大。</p>
-      </div>
-      <div class="split">
-        <div class="panel">
-          <h2>B2B SaaS</h2>
-          <p><strong>客戶：</strong>銀行、券商、壽險公司</p>
-          <p><strong>定價：</strong>API 授權</p>
-          <p>透過第三方機率模型，將傳統主觀建議轉為可驗證的決策依據，提升客戶信任並降低錯配風險與銷售爭議。</p>
-          <ul><li>低流失率</li><li>高客單價</li><li>監管合規護城河</li></ul>
-        </div>
-        <div class="panel">
-          <h2>TISA 平台整合</h2>
-          <p><strong>客戶：</strong>TISA 平台業者</p>
-          <p><strong>定價：</strong>分潤 + 嵌入式服務</p>
-          <p>在用戶投資決策前植入決策引擎，協助投資人理解不同方案下的成功率與風險底線。</p>
-          <ul><li>零獲客成本</li><li>規模自動放大</li><li>生態系護城河</li></ul>
-        </div>
-      </div>
-    </section>
+    <div class="sens-title">敏感度分析 — 最小代價調整方案</div>
+    ${sensHtml}
 
-    <section id="market">
-      <div class="section-title">
-        <h2>市場規模：TISA × 高齡化 × 財富管理</h2>
-        <p>退休規劃需求、個人投資帳戶制度與金融機構數位化，形成三重催化。</p>
-      </div>
-      <div class="cards">
-        <div class="card blue"><h3>NT$140億</h3><p>台灣財富管理 × 退休規劃市場</p></div>
-        <div class="card green"><h3>NT$85億</h3><p>TISA 帳戶持有者 × 決策工具需求</p></div>
-        <div class="card orange"><h3>NT$8.5億</h3><p>第一年目標：10 家機構 + 3 萬 B2C 用戶</p></div>
-      </div>
-    </section>
+    ${aiHtml}
+  `;
+}
+</script>
 
-    <section id="milestone">
-      <div class="section-title">
-        <h2>進度與里程碑</h2>
-        <p>MVP 完成後，18 個月內推進 B2B 合約、B2C App 與後續募資。</p>
-      </div>
-      <div class="cards">
-        <div class="card green"><h3>✅ MVP 完成</h3><p>Monte Carlo 引擎 + 台灣在地化模組</p></div>
-        <div class="card green"><h3>✅ 3 家機構洽談</h3><p>2 家銀行、1 家壽險 POC 進行中</p></div>
-        <div class="card green"><h3>✅ 300 人 Beta</h3><p>NPS 72 分，付費意願 62%</p></div>
-      </div>
-      <div class="timeline" style="margin-top:18px">
-        <div class="panel"><h3>Q3 2026</h3><ul><li>完成 3 家 B2B POC 轉正式合約</li><li>B2C App 上線</li><li>工程團隊擴編至 8 人</li></ul></div>
-        <div class="panel"><h3>Q4 2026</h3><ul><li>B2B 客戶擴展至 10 家</li><li>B2C MAU 達 1 萬</li><li>Series A 準備</li></ul></div>
-        <div class="panel"><h3>2027</h3><ul><li>市場領導地位鞏固</li><li>探索東南亞市場</li><li>年收入達 NT$3,000 萬</li></ul></div>
-      </div>
-    </section>
-
-    <section id="funding">
-      <div class="section-title">
-        <h2>募資計畫：Series A NT$5,000萬</h2>
-        <p>資金將用於產品研發、業務拓展、B2C 市場行銷與營運法遵。</p>
-      </div>
-      <div class="split">
-        <div class="panel">
-          <h2>本輪募資</h2>
-          <h3 style="font-size:48px;margin:0;color:var(--blue)">NT$5,000萬</h3>
-          <ul>
-            <li>10 家 B2B 機構合約</li>
-            <li>1 萬 B2C 活躍用戶</li>
-            <li>月收入 NT$250 萬</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h2>資金用途分配</h2>
-          <p>產品研發 40%</p><div class="progress-bar"><span style="width:40%"></span></div>
-          <p>業務拓展 30%</p><div class="progress-bar"><span style="width:30%"></span></div>
-          <p>市場行銷 20%</p><div class="progress-bar"><span style="width:20%"></span></div>
-          <p>營運與法遵 10%</p><div class="progress-bar"><span style="width:10%"></span></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="why">
-      <div class="section-title">
-        <h2>為什麼是我們？</h2>
-        <p>核心優勢來自技術、制度時機、B2B 嵌入與可複製的地域擴張。</p>
-      </div>
-      <div class="cards">
-        <div class="card blue"><h3>技術護城河</h3><p>整合 Monte Carlo 與台灣退休制度在地化的決策引擎。</p></div>
-        <div class="card green"><h3>監管先行者優勢</h3><p>TISA 制度上路初期，先行者將掌握機構長約與用戶習慣。</p></div>
-        <div class="card orange"><h3>B2B 關係護城河</h3><p>金融機構一旦嵌入決策引擎，轉換成本高。</p></div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer-cta">
-    <h2>成為 TISA 生態系中的標準決策引擎</h2>
-    <p>讓每一位投資者在投入資金前，都能看見成功率、風險底線與可執行的改善方向。</p>
-    <a class="btn btn-primary" href="#top">回到頂部</a>
-  </footer>
 </body>
 </html>

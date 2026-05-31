@@ -657,19 +657,15 @@ section.block{padding:70px 0}
 
     <div class="calc-actions">
       <button class="btn btn-primary" id="runBtn" onclick="runSim()">▶ 開始模擬</button>
-      <button class="adv-toggle" onclick="document.getElementById('advanced').classList.toggle('show')">進階設定（模擬條數 / 真實歷史資料 / AI 建議金鑰）</button>
+      <button class="adv-toggle" onclick="document.getElementById('advanced').classList.toggle('show')">進階設定（真實歷史資料 / AI 建議金鑰）</button>
     </div>
 
     <div class="advanced" id="advanced">
       <div class="adv-row">
         <div class="field">
-          <label>模擬路徑數</label>
-          <select id="nsim">
-            <option value="100000" selected>100,000（建議，約 1 秒）</option>
-            <option value="300000">300,000（更穩定，約 3 秒）</option>
-            <option value="50000">50,000（最快）</option>
-          </select>
-          <div class="hint">10 萬條與 100 萬條的成功率差異極小，CPU 即可即時運算。</div>
+          <label>固定模擬路徑數</label>
+          <input type="text" value="100,000 條 Monte Carlo 路徑" readonly>
+          <div class="hint">為維持網頁執行速度與結果穩定性，模型固定使用 100,000 次模擬，使用者不可調整。</div>
         </div>
         <div class="field">
           <label>歷史報酬資料來源</label>
@@ -1082,7 +1078,7 @@ function runSim(){
     self_contrib_rate:+v('self_contrib_rate')
   };
   if(p.retirement_age<=p.current_age||p.life_expectancy<=p.retirement_age){alert('請確認：目前年齡 < 退休年齡 < 預計壽命');return;}
-  const N=+v('nsim');
+  const N = 100000;
   const btn=document.getElementById('runBtn');btn.disabled=true;btn.innerHTML='<span class="spin">◐</span> 模擬中…';
   document.getElementById('progWrap').classList.add('show');
   setProg(3,'啟動運算引擎…');

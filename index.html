@@ -657,28 +657,15 @@ section.block{padding:70px 0}
 
     <div class="calc-actions">
       <button class="btn btn-primary" id="runBtn" onclick="runSim()">▶ 開始模擬</button>
-      <button class="adv-toggle" onclick="document.getElementById('advanced').classList.toggle('show')">進階設定（真實歷史資料 / AI 建議金鑰）</button>
+      <button class="adv-toggle" onclick="document.getElementById('advanced').classList.toggle('show')">設定 ChatGPT API Key</button>
     </div>
 
     <div class="advanced" id="advanced">
       <div class="adv-row">
         <div class="field">
-          <label>固定模擬路徑數</label>
-          <input type="text" value="100,000 條 Monte Carlo 路徑" readonly>
-          <div class="hint">為維持網頁執行速度與結果穩定性，模型固定使用 100,000 次模擬，使用者不可調整。</div>
-        </div>
-        <div class="field">
-          <label>歷史報酬資料來源</label>
-          <input type="file" id="csvFile" accept=".csv" onchange="loadCSV(event)">
-          <div class="hint">預設使用依說明書統計量生成的近似資料。可上傳真實的 <b>Model_data_with_AGG.csv</b> 取得正式結果。</div>
-          <div class="filechip" id="csvChip">目前：內建近似資料（254 個月）</div>
-        </div>
-      </div>
-      <div class="adv-row" style="margin-top:18px">
-        <div class="field">
           <label>OpenAI API Key（選用，用於 GPT-4o 建議）</label>
           <input type="password" id="openaiKey" placeholder="sk-...（只存在這個瀏覽器分頁，不會上傳到任何地方）" autocomplete="off">
-          <div class="hint">不填也沒關係：下方「智能建議」一定會產生。瀏覽器直接呼叫 OpenAI 可能被其 CORS 政策擋下，屆時請看智能建議即可。</div>
+          <div class="hint">不填也沒關係：下方「智能建議」一定會產生。正式公開版本建議改由後端代理 API，避免金鑰暴露。</div>
         </div>
         <div></div>
       </div>
@@ -766,7 +753,7 @@ section.block{padding:70px 0}
       </div>
     </div>
 
-    <p class="disclaimer">※ 本工具為退休規劃的情境模擬，所有數字僅供參考，不構成投資或財務建議。預設使用依模型說明書統計量生成的「近似歷史資料」；若需正式結果，請於進階設定上傳真實的 Model_data_with_AGG.csv。退休後資產不再參與市場報酬（保守設計）。</p>
+    <p class="disclaimer">※ 本工具為退休規劃的情境模擬，所有數字僅供參考，不構成投資或財務建議。模型固定使用 100,000 條 Monte Carlo 路徑，並使用內建近似歷史資料進行模擬。退休後資產不再參與市場報酬（保守設計）。</p>
   </div>
 </div></section>
 
@@ -1243,7 +1230,7 @@ function renderAdvice(p,sr,sens,target,avgBank){
 async function askGPT(){
   const key=v('openaiKey').trim();
   const out=document.getElementById('gptOut');out.classList.add('show');
-  if(!key){out.textContent='請先到「進階設定」填入你自己的 OpenAI API Key。';return;}
+  if(!key){out.textContent='請先點選「設定 ChatGPT API Key」並填入你自己的 OpenAI API Key。';return;}
   if(!LAST){out.textContent='請先執行一次模擬。';return;}
   const btn=document.getElementById('gptBtn');btn.disabled=true;btn.innerHTML='<span class="spin">◐</span> GPT-4o 思考中…';
   out.textContent='正在呼叫 GPT-4o…';

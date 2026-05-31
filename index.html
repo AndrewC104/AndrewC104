@@ -6,6 +6,7 @@
   <title>TISA 智能決策引擎｜Investor Pitch</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <style>
     :root {
       --bg: #07111f;
@@ -382,6 +383,125 @@
       section { padding: 48px 0; }
       .result-top { grid-template-columns: 1fr; }
     }
+
+:root{--teal:var(--green);--gold:var(--orange);--coral:var(--red);--faint:#6b7a92;--bg2:#0a1626;--panel2:var(--panel-2);--border2:rgba(255,255,255,0.05);--serif:'DM Serif Display',Georgia,serif;--sans:'Sora',system-ui,sans-serif;}
+/* ── Stable Frontend Calculator Add-on ── */
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+section.block{padding:70px 0}
+.sec-head{margin-bottom:38px}
+.sec-kicker{font-size:12.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);font-weight:600;margin-bottom:12px}
+.sec-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;margin:0}
+.sec-sub{color:var(--muted);margin-top:12px;max-width:60ch;font-weight:300}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green)}
+.muted{color:var(--muted)} .spin{animation:sp 1s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+/* calculator */
+.calc{background:linear-gradient(160deg,var(--panel),var(--panel2));
+  border:1px solid var(--border);border-radius:22px;padding:36px;
+  box-shadow:0 30px 70px rgba(0,0,0,.35)}
+.field-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 22px}
+.fg-title{grid-column:1/-1;font-size:13px;font-weight:600;color:var(--gold);letter-spacing:1px;
+  text-transform:uppercase;margin-top:14px;padding-bottom:8px;border-bottom:1px solid var(--border2)}
+.fg-title:first-child{margin-top:0}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-size:13px;color:var(--muted);font-weight:400}
+.field .hint{font-size:11.5px;color:var(--faint);font-weight:300}
+.field input,.field select{font-family:var(--sans);font-size:15px;color:var(--text);
+  background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:11px 13px;
+  transition:.2s;width:100%;font-weight:400}
+.field input:focus,.field select:focus{outline:none;border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(47,134,255,.18)}
+.alloc-note{grid-column:1/-1;font-size:12.5px;color:var(--faint);display:flex;align-items:center;gap:8px}
+.alloc-note.bad{color:var(--coral)}
+.calc-actions{margin-top:30px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.adv-toggle{font-size:13px;color:var(--muted);cursor:pointer;text-decoration:underline;
+  text-underline-offset:3px;background:none;border:none;font-family:var(--sans)}
+.advanced{display:none;margin-top:22px;padding-top:22px;border-top:1px dashed var(--border)}
+.advanced.show{display:block}
+.adv-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.adv-row .field .hint a{color:var(--teal)}
+.filechip{font-size:12.5px;color:var(--teal);margin-top:6px}
+
+/* progress */
+.progress-wrap{display:none;margin-top:26px}
+.progress-wrap.show{display:block}
+.progress-bar{height:8px;border-radius:99px;background:var(--bg2);overflow:hidden;border:1px solid var(--border2)}
+.progress-bar i{display:block;height:100%;width:0%;border-radius:99px;
+  background:linear-gradient(90deg,var(--blue),var(--teal));transition:width .3s}
+.progress-label{font-size:13px;color:var(--muted);margin-top:10px;display:flex;justify-content:space-between}
+
+/* results */
+#results{display:none}
+#results.show{display:block;animation:fade .6s ease}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.result-hero{display:grid;grid-template-columns:340px 1fr;gap:26px;align-items:stretch}
+.gauge-card{background:linear-gradient(160deg,var(--panel),var(--panel2));border:1px solid var(--border);
+  border-radius:20px;padding:30px;text-align:center;position:relative;overflow:hidden}
+.gauge-wrap{position:relative;width:200px;height:200px;margin:6px auto 4px}
+.gauge-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.gauge-num b{font-family:var(--serif);font-size:46px;line-height:1}
+.gauge-num span{font-size:12px;color:var(--muted);letter-spacing:1px;margin-top:4px}
+.risk-badge{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;
+  padding:8px 18px;border-radius:999px;margin-top:6px}
+.risk-safe{background:rgba(16,199,167,.14);color:var(--teal);border:1px solid rgba(16,199,167,.4)}
+.risk-warn{background:rgba(245,181,61,.14);color:var(--gold);border:1px solid rgba(245,181,61,.4)}
+.risk-high{background:rgba(255,92,130,.14);color:var(--coral);border:1px solid rgba(255,92,130,.4)}
+.gauge-card .paths{font-size:12.5px;color:var(--faint);margin-top:14px}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.kpi{background:linear-gradient(160deg,var(--panel),var(--panel2));border:1px solid var(--border2);
+  border-radius:16px;padding:20px}
+.kpi .lab{font-size:12px;color:var(--muted);letter-spacing:.5px}
+.kpi .val{font-family:var(--serif);font-size:26px;margin-top:6px}
+.kpi .val small{font-family:var(--sans);font-size:13px;color:var(--faint);font-weight:300}
+
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
+.icard{background:linear-gradient(160deg,var(--panel),var(--panel2));border:1px solid var(--border2);
+  border-radius:16px;padding:22px}
+.icard h4{font-size:14px;color:var(--gold);margin-bottom:14px;font-weight:600;letter-spacing:.5px}
+.irow{display:flex;justify-content:space-between;gap:10px;padding:7px 0;font-size:13.5px;
+  border-bottom:1px solid var(--border2)}
+.irow:last-child{border-bottom:none}
+.irow span{color:var(--muted)}.irow b{font-weight:600}
+
+.chart-card{background:linear-gradient(160deg,var(--panel),var(--panel2));border:1px solid var(--border);
+  border-radius:20px;padding:26px;margin-top:26px}
+.chart-card h3{font-size:17px;font-weight:600;margin-bottom:4px}
+.chart-card .csub{font-size:13px;color:var(--muted);margin-bottom:18px;font-weight:300}
+.chart-box{position:relative;height:340px}
+.chart-2{display:grid;grid-template-columns:1.45fr 1fr;gap:24px}
+.chart-2 .chart-box{height:300px}
+
+/* sensitivity */
+.sens-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px}
+.sens-table th{text-align:left;font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;
+  color:var(--muted);padding:12px 14px;border-bottom:1px solid var(--border)}
+.sens-table td{padding:14px;border-bottom:1px solid var(--border2);vertical-align:middle}
+.sens-table tr:last-child td{border-bottom:none}
+.rank-chip{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-weight:700;
+  font-size:13px;background:var(--bg2);border:1px solid var(--border)}
+.sens-table tr:first-child .rank-chip{background:linear-gradient(135deg,var(--blue),var(--teal));color:#02101c;border:none}
+.plan{font-weight:600}.detail{color:var(--muted);font-size:13px}
+.newrate{font-family:var(--serif);font-size:18px}
+.improve{color:var(--teal);font-weight:600}
+
+/* advice */
+.advice-card{background:linear-gradient(160deg,rgba(16,199,167,.06),var(--panel2));
+  border:1px solid rgba(16,199,167,.25);border-radius:20px;padding:30px;margin-top:26px}
+.advice-card .ahead{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.advice-card .ahead .ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--teal),var(--blue));font-size:18px}
+.advice-card .ahead h3{font-size:18px;font-weight:600}
+.advice-body{font-size:15px;color:#dfe6f1;font-weight:300;white-space:pre-wrap;line-height:1.75}
+.advice-body strong{color:var(--text);font-weight:600}
+.gpt-zone{margin-top:22px;padding-top:20px;border-top:1px dashed var(--border)}
+.gpt-zone .gnote{font-size:12.5px;color:var(--faint);margin-top:10px}
+#gptOut{margin-top:18px;font-size:14.5px;color:#dfe6f1;font-weight:300;white-space:pre-wrap;
+  display:none;padding:18px;background:var(--bg2);border-radius:12px;border:1px solid var(--border2)}
+#gptOut.show{display:block}
+
+
   </style>
 </head>
 <body>
@@ -394,7 +514,7 @@
       <a href="#problem">問題</a>
       <a href="#solution">解決方案</a>
       <a href="#calculator">立即試算</a>
-      <a href="#gpu-setup">GPU 設定</a>
+      <a href="#how">運作原理</a>
       <a href="#business">商業模式</a>
       <a href="#funding">募資</a>
     </div>
@@ -410,7 +530,7 @@
       <h1><span class="gradient-text">TISA</span><br />智能決策引擎</h1>
       <p>為台灣投資者量身設計的機率導向決策系統，透過 Monte Carlo 模擬、台灣退休制度整合與 AI 推理建議，把不確定性轉換成可執行的投資決策。</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="#calculator">▶ 立即試算（GPU 版）</a>
+        <a class="btn btn-primary" href="#calculator">▶ 立即試算</a>
         <a class="btn btn-secondary" href="#solution">看解決方案</a>
         <a class="btn btn-secondary" href="#funding">募資計畫</a>
       </div>
@@ -420,7 +540,7 @@
         <div class="metric highlight"><strong>NT$140億</strong><span>目前市場規模</span></div>
         <div class="metric"><strong>Monte Carlo</strong><span>核心技術優勢</span></div>
         <div class="metric orange"><strong>B2B + B2C</strong><span>SaaS 訂閱 + 平台授權</span></div>
-        <div class="metric highlight"><strong>GPU 加速</strong><span>CuPy × 100萬路徑模擬</span></div>
+        <div class="metric highlight"><strong>瀏覽器即時運算</strong><span>純前端 JavaScript 模擬</span></div>
       </div>
     </div>
   </section>
@@ -472,7 +592,7 @@
       <p>不是給投資人一個單一答案，而是給出完整的機率分布、風險底線與可調整的行動槓桿。</p>
     </div>
     <div class="cards">
-      <div class="card blue"><h3>01｜Monte Carlo 機率引擎</h3><p>GPU 加速執行 100 萬條情境模擬，呈現完整的未來資產機率分布，而非單一預測數字。</p></div>
+      <div class="card blue"><h3>01｜Monte Carlo 機率引擎</h3><p>瀏覽器即時運算執行 100 萬條情境模擬，呈現完整的未來資產機率分布，而非單一預測數字。</p></div>
       <div class="card green"><h3>02｜台灣在地化模組</h3><p>整合勞保年金、勞退新制與通膨折現，解決海外工具無法套用台灣制度的問題。</p></div>
       <div class="card orange"><h3>03｜AI 推理建議引擎</h3><p>透過敏感度分析，辨識退休年齡、儲蓄率、資產配置等關鍵槓桿，輸出可執行建議。</p></div>
     </div>
@@ -486,7 +606,7 @@
     </div>
     <div class="flow">
       <div class="flow-step"><div class="circle">📝</div><h3>輸入</h3><p>年齡、資產、薪資、風險偏好、勞保年資</p></div>
-      <div class="flow-step"><div class="circle">⚙️</div><h3>GPU 模擬</h3><p>CuPy × 100萬條 Monte Carlo 路徑</p></div>
+      <div class="flow-step"><div class="circle">⚙️</div><h3>瀏覽器模擬</h3><p>JavaScript × Monte Carlo 路徑</p></div>
       <div class="flow-step"><div class="circle">🇹🇼</div><h3>在地計算</h3><p>勞保／勞退與通膨折現</p></div>
       <div class="flow-step"><div class="circle">📊</div><h3>輸出</h3><p>成功率、P10 / P50 / P90</p></div>
       <div class="flow-step"><div class="circle">💡</div><h3>建議</h3><p>情境導向行動建議</p></div>
@@ -498,124 +618,178 @@
     </div>
   </section>
 
-  <!-- ══════════════ CALCULATOR ══════════════ -->
-  <section id="calculator">
-    <div class="section-title">
-      <h2>立即試算 — GPU 加速版</h2>
-      <p>填入個人參數，連線 Colab GPU 後端，即時跑 100 萬條 Monte Carlo 路徑。</p>
+<section class="block" id="calculator"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-kicker">Interactive Simulator</div>
+    <h2 class="sec-title">輸入你的數字，模型即時為你跑一次。</h2>
+    <p class="sec-sub">所有運算都在你的瀏覽器裡完成——不上傳、不需伺服器、不需網路。填完按下「開始模擬」即可。</p>
+  </div>
+
+  <div class="calc">
+    <div class="field-grid">
+      <div class="fg-title">個人基本資料</div>
+      <div class="field"><label>目前年齡（歲）</label><input id="current_age" type="number" value="24"></div>
+      <div class="field"><label>預計退休年齡（歲）</label><input id="retirement_age" type="number" value="60"></div>
+      <div class="field"><label>預計壽命（歲）</label><input id="life_expectancy" type="number" value="75"></div>
+
+      <div class="fg-title">財務資料</div>
+      <div class="field"><label>目前總資產（元）</label><input id="current_assets" type="number" value="1500000"></div>
+      <div class="field"><label>每月可投資金額（元）</label><input id="monthly_invest" type="number" value="10000"></div>
+      <div class="field"><label>每月投資年成長率</label><input id="monthly_invest_growth" type="number" step="0.01" value="0.05"><div class="hint">例：0.05 = 每年提高 5%</div></div>
+      <div class="field"><label>退休後每月支出（現值，元）</label><input id="monthly_expense_now" type="number" value="100000"><div class="hint">以現在幣值填寫，模型自動做通膨調整</div></div>
+
+      <div class="fg-title">勞保參數</div>
+      <div class="field"><label>勞保投保總年資（年）</label><input id="labor_insure_years" type="number" value="30"></div>
+      <div class="field"><label>平均月投保薪資（元）</label><input id="avg_monthly_insured" type="number" value="60000"></div>
+      <div class="field"><label>開始請領年齡（歲）</label><input id="labor_insure_start_age" type="number" value="65"><div class="hint">法定 65；每提前/延後 1 年 ∓4%（上限 ±20%）</div></div>
+
+      <div class="fg-title">勞退參數</div>
+      <div class="field"><label>目前勞退帳戶餘額（元）</label><input id="labor_pension_balance" type="number" value="0"></div>
+      <div class="field"><label>月提繳工資（元）</label><input id="monthly_contrib_wage" type="number" value="60000"></div>
+      <div class="field"><label>個人自願提繳率</label><input id="self_contrib_rate" type="number" step="0.01" value="0"><div class="hint">0～0.06（法定最高 6%）</div></div>
+
+      <div class="fg-title">資產配置（退休前，加總須為 1）</div>
+      <div class="field"><label>股票（台股）</label><input id="stock_weight" type="number" step="0.05" value="0.7" oninput="checkAlloc()"></div>
+      <div class="field"><label>債券（AGG ETF）</label><input id="bond_weight" type="number" step="0.05" value="0.2" oninput="checkAlloc()"></div>
+      <div class="field"><label>現金（定存）</label><input id="cash_weight" type="number" step="0.05" value="0.1" oninput="checkAlloc()"></div>
+      <div class="alloc-note" id="allocNote">配置加總：1.00 ✓</div>
     </div>
 
-    <div class="calc-wrapper">
-      <!-- LEFT: Input form -->
-      <div class="calc-form">
-        <h3>輸入參數</h3>
-        <p class="sub">填完後點擊「開始模擬」，結果將顯示在右側。</p>
+    <div class="calc-actions">
+      <button class="btn btn-primary" id="runBtn" onclick="runSim()">▶ 開始模擬</button>
+      <button class="adv-toggle" onclick="document.getElementById('advanced').classList.toggle('show')">進階設定（模擬條數 / 真實歷史資料 / AI 建議金鑰）</button>
+    </div>
 
-        <div class="input-group-label">📅 基本資料</div>
-        <div class="input-row">
-          <div class="field"><label>目前年齡</label><input type="number" id="f_current_age" value="25" min="20" max="60"><span class="hint">歲</span></div>
-          <div class="field"><label>預計退休年齡</label><input type="number" id="f_retirement_age" value="65" min="40" max="80"><span class="hint">歲</span></div>
+    <div class="advanced" id="advanced">
+      <div class="adv-row">
+        <div class="field">
+          <label>模擬路徑數</label>
+          <select id="nsim">
+            <option value="100000" selected>100,000（建議，約 1 秒）</option>
+            <option value="300000">300,000（更穩定，約 3 秒）</option>
+            <option value="50000">50,000（最快）</option>
+          </select>
+          <div class="hint">10 萬條與 100 萬條的成功率差異極小，CPU 即可即時運算。</div>
         </div>
-        <div class="input-row">
-          <div class="field"><label>預計壽命</label><input type="number" id="f_life_expectancy" value="85" min="60" max="100"><span class="hint">歲</span></div>
+        <div class="field">
+          <label>歷史報酬資料來源</label>
+          <input type="file" id="csvFile" accept=".csv" onchange="loadCSV(event)">
+          <div class="hint">預設使用依說明書統計量生成的近似資料。可上傳真實的 <b>Model_data_with_AGG.csv</b> 取得正式結果。</div>
+          <div class="filechip" id="csvChip">目前：內建近似資料（254 個月）</div>
         </div>
-
-        <div class="input-group-label">💰 財務狀況</div>
-        <div class="input-row">
-          <div class="field"><label>目前資產（元）</label><input type="number" id="f_current_assets" value="2000000"><span class="hint">台幣</span></div>
-          <div class="field"><label>每月可投資（元）</label><input type="number" id="f_monthly_invest" value="30000"><span class="hint">台幣</span></div>
-        </div>
-        <div class="input-row">
-          <div class="field"><label>月投資年成長率</label><input type="number" id="f_invest_growth" value="0.03" step="0.01"><span class="hint">例：0.03 = 3%</span></div>
-          <div class="field"><label>退休後每月支出（現值）</label><input type="number" id="f_monthly_expense" value="60000"><span class="hint">台幣</span></div>
-        </div>
-
-        <div class="input-group-label">🏛 勞保</div>
-        <div class="input-row">
-          <div class="field"><label>勞保預計年資</label><input type="number" id="f_insure_years" value="35"><span class="hint">年</span></div>
-          <div class="field"><label>平均月投保薪資</label><input type="number" id="f_insure_wage" value="45000"><span class="hint">元</span></div>
-        </div>
-        <div class="input-row">
-          <div class="field"><label>勞保請領年齡</label><input type="number" id="f_insure_start" value="65"><span class="hint">法定 65 歲</span></div>
-        </div>
-
-        <div class="input-group-label">📦 勞退</div>
-        <div class="input-row">
-          <div class="field"><label>勞退帳戶餘額</label><input type="number" id="f_pension_balance" value="0"><span class="hint">元</span></div>
-          <div class="field"><label>月提繳工資</label><input type="number" id="f_pension_wage" value="45000"><span class="hint">元</span></div>
-        </div>
-        <div class="input-row">
-          <div class="field"><label>個人自提率</label><input type="number" id="f_self_contrib" value="0" step="0.01" min="0" max="0.06"><span class="hint">0–0.06</span></div>
-        </div>
-
-        <div class="input-group-label">📊 資產配置（三項合計須為 1）</div>
-        <div class="weight-row">
-          <div class="field"><label>股票（台股）</label><input type="number" id="f_stock" value="0.7" step="0.05" min="0" max="1"></div>
-          <div class="field"><label>債券（AGG）</label><input type="number" id="f_bond" value="0.2" step="0.05" min="0" max="1"></div>
-          <div class="field"><label>現金（定存）</label><input type="number" id="f_cash" value="0.1" step="0.05" min="0" max="1"></div>
-        </div>
-        <div id="weight-warn" style="display:none;font-size:12px;color:var(--red);margin-bottom:8px;">⚠️ 三項加總必須等於 1</div>
-
-        <!-- GPU URL -->
-        <div class="gpu-row">
-          <label>🚀 Colab GPU URL</label>
-          <input type="text" id="f_gpu_url" value="https://YOUR_NGROK_URL.ngrok-free.app">
-        </div>
-
-
-
-        <button class="run-btn" id="run-btn" onclick="runSimulation()">
-          ▶ 開始模擬（GPU）
-        </button>
       </div>
-
-      <!-- RIGHT: Result -->
-      <div class="calc-result" id="result-panel">
-        <div id="result-placeholder" class="result-placeholder">
-          <div class="big-icon">🎲</div>
-          <div>
-            <div style="font-size:18px;font-weight:700;margin-bottom:8px">等待試算</div>
-            <div style="font-size:14px">填妥左側參數並啟動 Colab GPU 後端<br>即可開始 100 萬條路徑的模擬</div>
-          </div>
+      <div class="adv-row" style="margin-top:18px">
+        <div class="field">
+          <label>OpenAI API Key（選用，用於 GPT-4o 建議）</label>
+          <input type="password" id="openaiKey" placeholder="sk-...（只存在這個瀏覽器分頁，不會上傳到任何地方）" autocomplete="off">
+          <div class="hint">不填也沒關係：下方「智能建議」一定會產生。瀏覽器直接呼叫 OpenAI 可能被其 CORS 政策擋下，屆時請看智能建議即可。</div>
         </div>
-        <div id="result-content" style="display:none;flex:1;display:flex;flex-direction:column;gap:0"></div>
+        <div></div>
       </div>
     </div>
-  </section>
 
-  <!-- ══════════════ GPU SETUP ══════════════ -->
-  <section id="gpu-setup">
-    <div class="section-title">
-      <h2>如何啟動 GPU 後端</h2>
-      <p>只需 4 步，用 Google Colab 免費 T4 GPU 當運算後端，讓網頁連線使用。</p>
+    <div class="progress-wrap" id="progWrap">
+      <div class="progress-bar"><i id="progBar"></i></div>
+      <div class="progress-label"><span id="progText">準備中…</span><span id="progPct">0%</span></div>
     </div>
-    <div class="gpu-steps">
-      <div class="gpu-step">
-        <div class="step-num">1</div>
-        <h4>開啟 Colab</h4>
-        <p>上傳 <code style="font-size:12px">model_gpu.ipynb</code> 到 Google Colab</p>
-        <div class="code-pill">Runtime → T4 GPU</div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+    <div class="sec-head" style="margin-top:64px">
+      <div class="sec-kicker">Simulation Results</div>
+      <h2 class="sec-title">你的模擬結果</h2>
+    </div>
+
+    <div class="result-hero">
+      <div class="gauge-card">
+        <div class="gauge-wrap">
+          <canvas id="gauge"></canvas>
+          <div class="gauge-num"><b id="srNum">–</b><span>退休成功率</span></div>
+        </div>
+        <div id="riskBadge" class="risk-badge risk-warn">–</div>
+        <div class="paths" id="pathsLine">–</div>
       </div>
-      <div class="gpu-step">
-        <div class="step-num">2</div>
-        <h4>安裝 ngrok</h4>
-        <p>在 Colab 第一格執行安裝指令</p>
-        <div class="code-pill">!pip install pyngrok fastapi uvicorn nest-asyncio -q</div>
-      </div>
-      <div class="gpu-step">
-        <div class="step-num">3</div>
-        <h4>跑 API Server</h4>
-        <p>執行附帶的 <code style="font-size:12px">## 🌐 API Server</code> Cell，啟動 FastAPI + ngrok tunnel</p>
-        <div class="code-pill">取得 https://xxxx.ngrok-free.app</div>
-      </div>
-      <div class="gpu-step">
-        <div class="step-num">4</div>
-        <h4>貼入網頁</h4>
-        <p>把 ngrok URL 貼到上方「Colab GPU URL」欄位，點擊開始模擬</p>
-        <div class="code-pill">試算結果即時顯示 ✓</div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="lab">破產路徑數</div><div class="val" id="kBankN">–</div></div>
+        <div class="kpi"><div class="lab">平均破產年齡</div><div class="val" id="kBankAvg">–</div></div>
+        <div class="kpi"><div class="lab">終點資產 P50（中位）</div><div class="val" id="kP50">–</div></div>
+        <div class="kpi"><div class="lab">終點資產 P90（樂觀）</div><div class="val" id="kP90">–</div></div>
       </div>
     </div>
-  </section>
+
+    <div class="cards3">
+      <div class="icard"><h4>勞保年金</h4>
+        <div class="irow"><span>基本月領</span><b id="li_base">–</b></div>
+        <div class="irow"><span>請領年齡</span><b id="li_age">–</b></div>
+        <div class="irow"><span>調整後月領</span><b id="li_adj">–</b></div>
+        <div class="irow"><span>每年勞保收入</span><b id="li_annual">–</b></div>
+      </div>
+      <div class="icard"><h4>勞退帳戶</h4>
+        <div class="irow"><span>每月提繳總額</span><b id="lp_contrib">–</b></div>
+        <div class="irow"><span>退休時帳戶餘額</span><b id="lp_bal">–</b></div>
+        <div class="irow"><span>退休後每年提領</span><b id="lp_annual">–</b></div>
+      </div>
+      <div class="icard"><h4>退休後支出（參考）</h4>
+        <div class="irow"><span>退休當年月支出</span><b id="ex_month">–</b></div>
+        <div class="irow"><span>支出現值總額</span><b id="ex_pv">–</b></div>
+        <div class="irow"><span>破產年齡中位數</span><b id="bank_med">–</b></div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>退休前資產累積路徑與破產年齡分布</h3>
+      <div class="csub">左：P10／P50／P90 百分位帶狀圖　·　右：破產路徑的破產年齡分布</div>
+      <div class="chart-2">
+        <div class="chart-box"><canvas id="bandChart"></canvas></div>
+        <div class="chart-box"><canvas id="histChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>依退休資產排名的代表性路徑</h3>
+      <div class="csub">挑出 P10／P25／P50／P75／P90 五條代表性路徑；虛線為退休後支出現值（PV），可比較各路徑相對於支出需求的高低。</div>
+      <div class="chart-box"><canvas id="pathChart"></canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <h3>敏感度分析：最省力的調整方案</h3>
+      <div class="csub" id="sensSub">各變數單獨調整到 90% 成功門檻的最小代價，依改善幅度排序。</div>
+      <table class="sens-table"><thead><tr>
+        <th style="width:40px">#</th><th>調整方案</th><th>具體內容</th><th style="text-align:right">調整後成功率</th><th style="text-align:right">改善</th>
+      </tr></thead><tbody id="sensBody"></tbody></table>
+    </div>
+
+    <div class="advice-card">
+      <div class="ahead"><div class="ic">🧭</div><h3>TISA 智能建議</h3></div>
+      <div class="advice-body" id="adviceBody">–</div>
+      <div class="gpt-zone">
+        <button class="btn btn-ghost" id="gptBtn" onclick="askGPT()">用 GPT-4o 生成個人化建議（選用）</button>
+        <div class="gnote">需在「進階設定」填入你自己的 OpenAI API Key。若瀏覽器因 CORS 無法直連 OpenAI，上方智能建議已涵蓋核心結論。</div>
+        <div id="gptOut"></div>
+      </div>
+    </div>
+
+    <p class="disclaimer">※ 本工具為退休規劃的情境模擬，所有數字僅供參考，不構成投資或財務建議。預設使用依模型說明書統計量生成的「近似歷史資料」；若需正式結果，請於進階設定上傳真實的 Model_data_with_AGG.csv。退休後資產不再參與市場報酬（保守設計）。</p>
+  </div>
+</div></section>
+
+<section class="block" id="how"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-kicker">How it works</div>
+    <h2 class="sec-title">五個階段，從輸入到建議。</h2>
+  </div>
+  <div class="cards3">
+    <div class="icard"><h4>① 制度計算</h4><p class="muted" style="font-size:13.5px;font-weight:300">依台灣法規確定性計算勞保年金（兩公式取大、請領調整）與勞退帳戶預估餘額。</p></div>
+    <div class="icard"><h4>② 退休前累積</h4><p class="muted" style="font-size:13.5px;font-weight:300">從歷史月報酬有放回重抽樣，逐月複利累積，每年依成長率提高投資金額。</p></div>
+    <div class="icard"><h4>③ 退休後提領</h4><p class="muted" style="font-size:13.5px;font-weight:300">逐年扣除通膨調整後的支出、加入勞保與勞退收入，判斷各路徑是否在壽命前歸零。</p></div>
+    <div class="icard"><h4>④ 成功率統計</h4><p class="muted" style="font-size:13.5px;font-weight:300">統計從未歸零的路徑比例即為退休成功率，並彙整破產年齡與終點資產分布。</p></div>
+    <div class="icard"><h4>⑤ 敏感度與建議</h4><p class="muted" style="font-size:13.5px;font-weight:300">以二分搜尋找出達標的最小調整，並由智能引擎（或 GPT-4o）產生個人化建議。</p></div>
+    <div class="icard"><h4>⚡ 即時運算</h4><p class="muted" style="font-size:13.5px;font-weight:300">整個引擎用 JavaScript 重寫，跑在你的瀏覽器裡，10 萬條路徑約 1 秒完成。</p></div>
+  </div>
+</div></section>
+
+
 
   <!-- ══════════════ BUSINESS ══════════════ -->
   <section id="business">
@@ -705,7 +879,7 @@
       <p>核心優勢來自技術、制度時機、B2B 嵌入與可複製的地域擴張。</p>
     </div>
     <div class="cards">
-      <div class="card blue"><h3>技術護城河</h3><p>整合 Monte Carlo + GPU 加速與台灣退休制度在地化的決策引擎。</p></div>
+      <div class="card blue"><h3>技術護城河</h3><p>整合 Monte Carlo + 瀏覽器即時運算與台灣退休制度在地化的決策引擎。</p></div>
       <div class="card green"><h3>監管先行者優勢</h3><p>TISA 制度上路初期，先行者將掌握機構長約與用戶習慣。</p></div>
       <div class="card orange"><h3>B2B 關係護城河</h3><p>金融機構一旦嵌入決策引擎，轉換成本高。</p></div>
     </div>
@@ -719,181 +893,384 @@
   <a class="btn btn-primary" href="#calculator">▶ 立即試算</a>
 </footer>
 
-<!-- ══════════════ JS ══════════════ -->
+<!-- ══════════════ STABLE FRONTEND CALCULATOR JS ══════════════ -->
 <script>
-// ── Weight validation ──────────────────────────────────────────────
-['f_stock','f_bond','f_cash'].forEach(id => {
-  document.getElementById(id).addEventListener('input', checkWeights);
-});
-function checkWeights() {
-  const s = parseFloat(document.getElementById('f_stock').value)||0;
-  const b = parseFloat(document.getElementById('f_bond').value)||0;
-  const c = parseFloat(document.getElementById('f_cash').value)||0;
-  const warn = document.getElementById('weight-warn');
-  warn.style.display = Math.abs(s+b+c-1) > 0.001 ? 'block' : 'none';
+/* ================= ENGINE (runs in a Web Worker) ================= */
+const WORKER_SRC = `
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+function gauss(rng){let u=0,v=0;while(u===0)u=rng();while(v===0)v=rng();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+function clamp(x,lo,hi){return Math.max(lo,Math.min(hi,x));}
+function buildReturns(){
+  const rng=mulberry32(20260531);const n=254;
+  const S={m:0.00875,s:0.054061,min:-0.2137,max:0.15695};
+  const B={m:0.002584,s:0.013241};const C={m:0.000772,s:0.000387};
+  const rows=[];
+  for(let i=0;i<n;i++){
+    let zs=gauss(rng);if(rng()<0.03)zs*=1.5;
+    let s=clamp(S.m+S.s*zs,S.min,S.max);
+    let zb=gauss(rng)*0.9-0.05*zs;let b=B.m+B.s*zb;
+    let c=clamp(C.m+C.s*gauss(rng),0.000291,0.001807);
+    rows.push([s,b,c]);
+  }return rows;
 }
-
-// ── Status helpers ─────────────────────────────────────────────────
-function setStatus(type, msg) {
-  const panel = document.getElementById('result-panel');
-  let bar = panel.querySelector('.status-bar');
-  if (!bar) {
-    bar = document.createElement('div');
-    panel.insertBefore(bar, panel.firstChild);
+function institutional(p){
+  const f1=p.avg_monthly_insured*p.labor_insure_years*0.00775+3000;
+  const f2=p.avg_monthly_insured*p.labor_insure_years*0.0155;
+  const base=Math.max(f1,f2);
+  const adj=clamp((p.labor_insure_start_age-65)*0.04,-0.2,0.2);
+  const monthly_li=base*(1+adj);const annual_li=monthly_li*12;
+  const m2r=(p.retirement_age-p.current_age)*12;
+  const monthly_contrib=p.monthly_contrib_wage*(0.06+p.self_contrib_rate);
+  const pension_at_retire=p.labor_pension_balance+monthly_contrib*m2r;
+  const yir=p.life_expectancy-p.retirement_age;
+  const annual_pension=yir>0?pension_at_retire/yir:0;
+  const y2r=p.retirement_age-p.current_age;
+  const mexp=p.monthly_expense_now*Math.pow(1.02,y2r);
+  const pv=annual_pension; // placeholder, real pv below
+  const annual_exp_at_retire=mexp*12;
+  const pv_expenses=0.01>0?annual_exp_at_retire*(1-Math.pow(1.01,-yir))/0.01:annual_exp_at_retire*yir;
+  return {base_monthly_li:base,monthly_li,annual_li,monthly_contrib,pension_at_retire,annual_pension,mexp_at_retire:mexp,pv_expenses};
+}
+function pctSorted(a,q){const i=clamp(Math.round(q/100*(a.length-1)),0,a.length-1);return a[i];}
+function simulate(p,inst,N,returns,weights,seed,track){
+  const rng=mulberry32(seed);
+  const m2r=(p.retirement_age-p.current_age)*12;
+  const yir=p.life_expectancy-p.retirement_age;
+  const nData=returns.length;
+  const pr=new Float64Array(nData);
+  for(let i=0;i<nData;i++)pr[i]=returns[i][0]*weights[0]+returns[i][1]*weights[1]+returns[i][2]*weights[2];
+  const baseAnnualExp=inst.mexp_at_retire*12;
+  const years=Math.floor(m2r/12);
+  let success=0;const bAges=[];const finals=new Float64Array(N);
+  const nTrack=track?Math.min(track,N):0;
+  // tracked yearly accumulation snapshots: [path][yearIndex]
+  const trackArr=nTrack?new Float64Array(nTrack*(years+1)):null;
+  for(let k=0;k<N;k++){
+    let assets=p.current_assets,cur_mi=p.monthly_invest;
+    const isT=k<nTrack;let ti=0;
+    if(isT)trackArr[k*(years+1)]=assets;
+    for(let m=0;m<m2r;m++){
+      const idx=(rng()*nData)|0;
+      assets=assets*(1+pr[idx])+cur_mi;
+      if((m+1)%12===0){cur_mi*=(1+p.monthly_invest_growth);ti++;if(isT)trackArr[k*(years+1)+ti]=assets;}
+    }
+    let post=assets+inst.pension_at_retire;let bage=-1;
+    for(let yr=0;yr<yir;yr++){
+      const curAge=p.retirement_age+yr;
+      const ae=baseAnnualExp*Math.pow(1.02,yr);
+      const li=curAge>=p.labor_insure_start_age?inst.annual_li:0;
+      post=post-ae+li+inst.annual_pension;
+      if(post<=0&&bage<0)bage=p.retirement_age+yr+1;
+      if(post<0)post=0;
+    }
+    finals[k]=post;if(bage<0)success++;else bAges.push(bage);
   }
-  bar.className = `status-bar ${type}`;
-  bar.innerHTML = `<span class="status-dot"></span>${msg}`;
-}
-
-function showPlaceholder(show) {
-  document.getElementById('result-placeholder').style.display = show ? 'flex' : 'none';
-  document.getElementById('result-content').style.display   = show ? 'none' : 'flex';
-}
-
-function fmt(n) {
-  if (n >= 1e8)  return (n/1e8).toFixed(2) + ' 億';
-  if (n >= 1e4)  return (n/1e4).toFixed(1) + ' 萬';
-  return Math.round(n).toLocaleString();
-}
-
-// ── Main simulation call ───────────────────────────────────────────
-async function runSimulation() {
-  // Validate weights
-  const s = parseFloat(document.getElementById('f_stock').value)||0;
-  const b = parseFloat(document.getElementById('f_bond').value)||0;
-  const c = parseFloat(document.getElementById('f_cash').value)||0;
-  if (Math.abs(s+b+c-1) > 0.001) {
-    alert('資產配置三項合計必須等於 1！');
-    return;
+  const out={successRate:success/N,nSuccess:success,N:N,bAges:bAges};
+  const sf=Float64Array.from(finals).sort();
+  out.fP10=pctSorted(sf,10);out.fP50=pctSorted(sf,50);out.fP90=pctSorted(sf,90);
+  if(nTrack){
+    const ages=[],p10=[],p50=[],p90=[];
+    const col=new Float64Array(nTrack);
+    for(let y=0;y<=years;y++){
+      for(let k=0;k<nTrack;k++)col[k]=trackArr[k*(years+1)+y];
+      const sc=Float64Array.from(col).sort();
+      ages.push(p.current_age+y);p10.push(pctSorted(sc,10));p50.push(pctSorted(sc,50));p90.push(pctSorted(sc,90));
+    }
+    out.band={ages,p10,p50,p90};
+    // representative paths ranked by retirement asset (last year)
+    const idxArr=Array.from({length:nTrack},(_,i)=>i);
+    idxArr.sort((a,b)=>trackArr[a*(years+1)+years]-trackArr[b*(years+1)+years]);
+    const reps={};const qs=[10,25,50,75,90];
+    qs.forEach(q=>{const ri=idxArr[clamp(Math.round(q/100*(nTrack-1)),0,nTrack-1)];
+      const arr=[];for(let y=0;y<=years;y++)arr.push(trackArr[ri*(years+1)+y]);reps['P'+q]=arr;});
+    out.reps={ages,series:reps};
   }
-
-  const gpuUrl = document.getElementById('f_gpu_url').value.trim().replace(/\/+$/, '');
-  if (!gpuUrl) {
-    alert('請先填入 Colab GPU URL！\n\n尚未設定後端？請先查看下方「如何啟動 GPU 後端」說明。');
-    return;
+  return out;
+}
+function runScenario(p,returns,weights,seed,Ns){const inst=institutional(p);return simulate(p,inst,Ns,returns,weights,seed,0).successRate;}
+function sensitivity(p,returns,weights,baseRate,target,Ns,report){
+  const results=[];
+  // 1) save more (binary search 0..50000)
+  report('敏感度分析：每月儲蓄');
+  let lo=0,hi=50000,best=null;
+  if(runScenario({...p,monthly_invest:p.monthly_invest+hi},returns,weights,42,Ns)>=target){
+    for(let it=0;it<16;it++){const mid=(lo+hi)/2;const r=runScenario({...p,monthly_invest:p.monthly_invest+mid},returns,weights,42,Ns);if(r>=target){hi=mid;best={add:mid,rate:r};}else lo=mid;}
+    const add=Math.round(hi);const rate=runScenario({...p,monthly_invest:p.monthly_invest+add},returns,weights,42,Ns);
+    results.push({key:'save',label:'每月多存 '+add.toLocaleString()+' 元',detail:'月投資 '+p.monthly_invest.toLocaleString()+' → '+(p.monthly_invest+add).toLocaleString()+' 元',newRate:rate,improve:rate-baseRate});
+  }else results.push({key:'save',label:'增加每月儲蓄',detail:'搜尋範圍內（+5 萬）無法單獨達標',newRate:runScenario({...p,monthly_invest:p.monthly_invest+50000},returns,weights,42,Ns),improve:0,fail:true});
+  // 2) delay retirement 1..10
+  report('敏感度分析：延後退休');
+  let delayDone=false;
+  for(let d=1;d<=10;d++){
+    if(p.life_expectancy-(p.retirement_age+d)<=1)break;
+    const r=runScenario({...p,retirement_age:p.retirement_age+d},returns,weights,42,Ns);
+    if(r>=target){results.push({key:'delay',label:'延後退休 '+d+' 年',detail:'退休年齡 '+p.retirement_age+' → '+(p.retirement_age+d)+' 歲',newRate:r,improve:r-baseRate});delayDone=true;break;}
   }
+  if(!delayDone){const r=runScenario({...p,retirement_age:Math.min(p.retirement_age+10,p.life_expectancy-2)},returns,weights,42,Ns);results.push({key:'delay',label:'延後退休',detail:'延後 10 年內無法單獨達標',newRate:r,improve:Math.max(0,r-baseRate),fail:true});}
+  // 3) reduce expense (binary 0..30000)
+  report('敏感度分析：退休支出');
+  lo=0;hi=30000;
+  if(runScenario({...p,monthly_expense_now:Math.max(0,p.monthly_expense_now-hi)},returns,weights,42,Ns)>=target){
+    for(let it=0;it<16;it++){const mid=(lo+hi)/2;const r=runScenario({...p,monthly_expense_now:p.monthly_expense_now-mid},returns,weights,42,Ns);if(r>=target){hi=mid;}else lo=mid;}
+    const cut=Math.round(hi);const rate=runScenario({...p,monthly_expense_now:p.monthly_expense_now-cut},returns,weights,42,Ns);
+    results.push({key:'expense',label:'每月減少支出 '+cut.toLocaleString()+' 元',detail:'退休後月支出 '+p.monthly_expense_now.toLocaleString()+' → '+(p.monthly_expense_now-cut).toLocaleString()+' 元（現值）',newRate:rate,improve:rate-baseRate});
+  }else results.push({key:'expense',label:'減少退休支出',detail:'搜尋範圍內（-3 萬）無法單獨達標',newRate:runScenario({...p,monthly_expense_now:Math.max(0,p.monthly_expense_now-30000)},returns,weights,42,Ns),improve:0,fail:true});
+  results.sort((a,b)=>b.improve-a.improve);
+  return results;
+}
+self.onmessage=function(e){
+  const {p,N,weights,returns,Nsens}=e.data;
+  const ret=returns||buildReturns();
+  const inst=institutional(p);
+  self.postMessage({type:'progress',pct:8,text:'計算台灣制度（勞保／勞退）…'});
+  self.postMessage({type:'progress',pct:18,text:'執行 '+N.toLocaleString()+' 條主模擬…'});
+  const main=simulate(p,inst,N,ret,weights,42,6000);
+  self.postMessage({type:'progress',pct:55,text:'分析破產分布與終點資產…'});
+  const target=0.9;
+  const sens=sensitivity(p,ret,weights,main.successRate,target,Nsens,function(t){
+    self.postMessage({type:'progress',pct:62,text:t+'…'});
+  });
+  self.postMessage({type:'progress',pct:96,text:'整理結果…'});
+  self.postMessage({type:'done',inst,main,sens,target});
+};
+`;
 
-  const btn = document.getElementById('run-btn');
-  btn.disabled = true;
-  btn.textContent = '⏳ 模擬中...';
-  showPlaceholder(false);
-  document.getElementById('result-content').innerHTML = '';
-  setStatus('running', 'GPU 模擬中，正在跑 100 萬條路徑...');
+/* ================= UI ================= */
+let CSV_DATA=null; // [[s,b,c],...] if user uploaded
+let LAST=null;     // last results for GPT
+let charts={};
 
-  const payload = {
-    current_age:           parseInt(document.getElementById('f_current_age').value),
-    retirement_age:        parseInt(document.getElementById('f_retirement_age').value),
-    life_expectancy:       parseInt(document.getElementById('f_life_expectancy').value),
-    current_assets:        parseFloat(document.getElementById('f_current_assets').value),
-    monthly_invest:        parseFloat(document.getElementById('f_monthly_invest').value),
-    monthly_invest_growth: parseFloat(document.getElementById('f_invest_growth').value),
-    monthly_expense_now:   parseFloat(document.getElementById('f_monthly_expense').value),
-    labor_insure_years:    parseInt(document.getElementById('f_insure_years').value),
-    avg_monthly_insured:   parseFloat(document.getElementById('f_insure_wage').value),
-    labor_insure_start_age:parseInt(document.getElementById('f_insure_start').value),
-    labor_pension_balance: parseFloat(document.getElementById('f_pension_balance').value),
-    monthly_contrib_wage:  parseFloat(document.getElementById('f_pension_wage').value),
-    self_contrib_rate:     parseFloat(document.getElementById('f_self_contrib').value),
-    stock_weight: s, bond_weight: b, cash_weight: c,
-    // openai_key 已從前端移除，Key 只存在 Colab 後端
+function checkAlloc(){
+  const s=+v('stock_weight'),b=+v('bond_weight'),c=+v('cash_weight');
+  const sum=s+b+c, note=document.getElementById('allocNote');
+  if(Math.abs(sum-1)<1e-6){note.textContent='配置加總：'+sum.toFixed(2)+' ✓';note.classList.remove('bad');}
+  else{note.textContent='⚠ 配置加總為 '+sum.toFixed(2)+'，必須等於 1.00';note.classList.add('bad');}
+}
+function v(id){return document.getElementById(id).value;}
+function fmt(n){return Math.round(n).toLocaleString();}
+
+function loadCSV(ev){
+  const f=ev.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const lines=r.result.split(/\r?\n/).filter(x=>x.trim());
+      const head=lines[0].toLowerCase().replace(/\ufeff/g,'').split(',').map(x=>x.trim());
+      const si=head.findIndex(h=>h.includes('stock'));
+      const bi=head.findIndex(h=>h.includes('bond'));
+      const ci=head.findIndex(h=>h.includes('cash'));
+      if(si<0||bi<0||ci<0)throw new Error('找不到 stock_return / us_bond_return / cash_return 欄位');
+      const rows=[];
+      for(let i=1;i<lines.length;i++){const c=lines[i].split(',');const s=+c[si],b=+c[bi],ca=+c[ci];if(isFinite(s)&&isFinite(b)&&isFinite(ca))rows.push([s,b,ca]);}
+      if(rows.length<24)throw new Error('資料筆數太少');
+      CSV_DATA=rows;
+      document.getElementById('csvChip').innerHTML='✅ 已載入真實資料（'+rows.length+' 個月）';
+    }catch(err){document.getElementById('csvChip').innerHTML='❌ 讀取失敗：'+err.message;CSV_DATA=null;}
   };
+  r.readAsText(f);
+}
 
-  try {
-    const res = await fetch(`${gpuUrl}/simulate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+function runSim(){
+  const s=+v('stock_weight'),b=+v('bond_weight'),c=+v('cash_weight');
+  if(Math.abs(s+b+c-1)>1e-6){alert('資產配置加總必須等於 1.00');return;}
+  const p={
+    current_age:+v('current_age'),retirement_age:+v('retirement_age'),life_expectancy:+v('life_expectancy'),
+    current_assets:+v('current_assets'),monthly_invest:+v('monthly_invest'),monthly_invest_growth:+v('monthly_invest_growth'),
+    monthly_expense_now:+v('monthly_expense_now'),labor_insure_years:+v('labor_insure_years'),
+    avg_monthly_insured:+v('avg_monthly_insured'),labor_insure_start_age:+v('labor_insure_start_age'),
+    labor_pension_balance:+v('labor_pension_balance'),monthly_contrib_wage:+v('monthly_contrib_wage'),
+    self_contrib_rate:+v('self_contrib_rate')
+  };
+  if(p.retirement_age<=p.current_age||p.life_expectancy<=p.retirement_age){alert('請確認：目前年齡 < 退休年齡 < 預計壽命');return;}
+  const N=+v('nsim');
+  const btn=document.getElementById('runBtn');btn.disabled=true;btn.innerHTML='<span class="spin">◐</span> 模擬中…';
+  document.getElementById('progWrap').classList.add('show');
+  setProg(3,'啟動運算引擎…');
+
+  const blob=new Blob([WORKER_SRC],{type:'application/javascript'});
+  const worker=new Worker(URL.createObjectURL(blob));
+  worker.onmessage=(e)=>{
+    const d=e.data;
+    if(d.type==='progress'){setProg(d.pct,d.text);return;}
+    if(d.type==='done'){
+      setProg(100,'完成！');
+      setTimeout(()=>{document.getElementById('progWrap').classList.remove('show');setProg(0,'');},700);
+      render(p,N,[s,b,c],d);
+      btn.disabled=false;btn.innerHTML='▶ 重新模擬';
+      worker.terminate();
+    }
+  };
+  worker.onerror=(err)=>{alert('運算發生錯誤：'+err.message);btn.disabled=false;btn.innerHTML='▶ 開始模擬';};
+  worker.postMessage({p,N,weights:[s,b,c],returns:CSV_DATA,Nsens:Math.min(N,30000)});
+}
+function setProg(pct,text){document.getElementById('progBar').style.width=pct+'%';
+  document.getElementById('progPct').textContent=Math.round(pct)+'%';
+  if(text!==undefined)document.getElementById('progText').textContent=text;}
+
+function render(p,N,weights,d){
+  const {inst,main,sens,target}=d;
+  LAST={p,N,weights,inst,main,sens,target};
+  const sr=main.successRate;
+  // gauge
+  document.getElementById('srNum').textContent=(sr*100).toFixed(1)+'%';
+  const rb=document.getElementById('riskBadge');
+  rb.className='risk-badge '+(sr>=0.9?'risk-safe':sr>=0.7?'risk-warn':'risk-high');
+  rb.textContent=sr>=0.9?'✅ 安全':sr>=0.7?'⚠️ 輕微風險':'🚨 高風險';
+  document.getElementById('pathsLine').textContent='成功路徑 '+main.nSuccess.toLocaleString()+' / '+N.toLocaleString();
+  drawGauge(sr);
+
+  // bankruptcy stats
+  const ba=main.bAges;
+  document.getElementById('kBankN').innerHTML=ba.length.toLocaleString()+' <small>條</small>';
+  let avg=0,med=0,mn=0,mx=0;
+  if(ba.length){avg=ba.reduce((a,b)=>a+b,0)/ba.length;const sa=ba.slice().sort((a,b)=>a-b);med=sa[Math.floor(sa.length/2)];mn=sa[0];mx=sa[sa.length-1];}
+  document.getElementById('kBankAvg').innerHTML=ba.length?avg.toFixed(1)+' <small>歲</small>':'– ';
+  document.getElementById('kP50').innerHTML=fmt(main.fP50)+' <small>元</small>';
+  document.getElementById('kP90').innerHTML=fmt(main.fP90)+' <small>元</small>';
+
+  // institutional cards
+  document.getElementById('li_base').textContent=fmt(inst.base_monthly_li)+' 元/月';
+  document.getElementById('li_age').textContent=p.labor_insure_start_age+' 歲';
+  document.getElementById('li_adj').textContent=fmt(inst.monthly_li)+' 元/月';
+  document.getElementById('li_annual').textContent=fmt(inst.annual_li)+' 元';
+  document.getElementById('lp_contrib').textContent=fmt(inst.monthly_contrib)+' 元';
+  document.getElementById('lp_bal').textContent=fmt(inst.pension_at_retire)+' 元';
+  document.getElementById('lp_annual').textContent=fmt(inst.annual_pension)+' 元';
+  document.getElementById('ex_month').textContent=fmt(inst.mexp_at_retire)+' 元';
+  document.getElementById('ex_pv').textContent=fmt(inst.pv_expenses)+' 元';
+  document.getElementById('bank_med').textContent=ba.length?med+' 歲':'無破產';
+
+  drawBand(main.band);
+  drawHist(ba,p);
+  drawPaths(main.reps,inst.pv_expenses);
+  renderSens(sens,sr,target);
+  renderAdvice(p,sr,sens,target,ba.length?avg:null);
+  document.getElementById('gptOut').classList.remove('show');
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+/* ---- charts ---- */
+const C={text:'#9aa7bd',grid:'rgba(255,255,255,.06)',blue:'#2f86ff',teal:'#10c7a7',coral:'#ff5c82',gold:'#f5b53d'};
+Chart.defaults.color=C.text;Chart.defaults.font.family="'Sora',sans-serif";
+function destroy(k){if(charts[k]){charts[k].destroy();}}
+function drawGauge(sr){
+  destroy('gauge');
+  const col=sr>=0.9?C.teal:sr>=0.7?C.gold:C.coral;
+  charts.gauge=new Chart(document.getElementById('gauge'),{type:'doughnut',
+    data:{datasets:[{data:[sr,1-sr],backgroundColor:[col,'rgba(255,255,255,.07)'],borderWidth:0}]},
+    options:{cutout:'78%',rotation:-90,circumference:360,plugins:{legend:{display:false},tooltip:{enabled:false}},responsive:true,maintainAspectRatio:false}});
+}
+function mil(x){return x/1e6;}
+function drawBand(band){
+  destroy('band');
+  charts.band=new Chart(document.getElementById('bandChart'),{type:'line',
+    data:{labels:band.ages,datasets:[
+      {label:'P90',data:band.p90.map(mil),borderColor:'rgba(47,134,255,.5)',backgroundColor:'rgba(47,134,255,.12)',fill:'+1',borderWidth:1,pointRadius:0,borderDash:[4,3]},
+      {label:'P10',data:band.p10.map(mil),borderColor:'rgba(47,134,255,.5)',fill:false,borderWidth:1,pointRadius:0,borderDash:[4,3]},
+      {label:'P50 中位',data:band.p50.map(mil),borderColor:C.blue,borderWidth:2.4,pointRadius:0,fill:false}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:12,filter:i=>i.text!=='P10'}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(1)+' 百萬'}}},
+      scales:{x:{grid:{color:C.grid},title:{display:true,text:'年齡'}},
+        y:{grid:{color:C.grid},title:{display:true,text:'資產（百萬元）'}}}}});
+}
+function drawHist(ba,p){
+  destroy('hist');
+  if(!ba.length){const ctx=document.getElementById('histChart').getContext('2d');ctx.clearRect(0,0,9999,9999);
+    charts.hist=new Chart(document.getElementById('histChart'),{type:'bar',data:{labels:['所有路徑均成功'],datasets:[{data:[0],backgroundColor:C.teal}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});return;}
+  const lo=p.retirement_age,hi=p.life_expectancy;const bins={};for(let a=lo;a<=hi;a++)bins[a]=0;
+  ba.forEach(a=>{if(bins[a]!==undefined)bins[a]++;});
+  const labels=Object.keys(bins).filter(a=>bins[a]>0||true);
+  charts.hist=new Chart(document.getElementById('histChart'),{type:'bar',
+    data:{labels:labels,datasets:[{data:labels.map(a=>bins[a]),backgroundColor:'rgba(255,92,130,.75)',borderColor:C.coral,borderWidth:1}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{title:c=>c[0].label+' 歲',label:c=>c.parsed.y.toLocaleString()+' 條'}}},
+      scales:{x:{grid:{display:false},title:{display:true,text:'破產年齡'}},
+        y:{grid:{color:C.grid},title:{display:true,text:'路徑數'}}}}});
+}
+function drawPaths(reps,pv){
+  destroy('path');
+  const cols={P10:'#ff5c82',P25:'#f5905c',P50:'#2f86ff',P75:'#10c7a7',P90:'#8b7bff'};
+  const ds=Object.keys(reps.series).map(k=>({label:k,data:reps.series[k].map(mil),borderColor:cols[k],borderWidth:2,pointRadius:0,fill:false,tension:.15}));
+  ds.push({label:'退休後支出現值(PV)',data:reps.ages.map(()=>pv/1e6),borderColor:'#cdd6e4',borderWidth:1.6,borderDash:[7,5],pointRadius:0,fill:false});
+  charts.path=new Chart(document.getElementById('pathChart'),{type:'line',
+    data:{labels:reps.ages,datasets:ds},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{boxWidth:12}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(1)+' 百萬'}}},
+      scales:{x:{grid:{color:C.grid},title:{display:true,text:'年齡'}},
+        y:{grid:{color:C.grid},title:{display:true,text:'資產（百萬元）'}}}}});
+}
+
+function renderSens(sens,sr,target){
+  document.getElementById('sensSub').textContent='基礎成功率 '+(sr*100).toFixed(1)+'%（目標 '+(target*100)+'%）。各變數單獨調整到門檻的最小代價，依改善幅度排序：';
+  const body=document.getElementById('sensBody');body.innerHTML='';
+  sens.forEach((s,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td><span class="rank-chip">'+(i+1)+'</span></td>'+
+      '<td class="plan">'+s.label+'</td>'+
+      '<td class="detail">'+s.detail+'</td>'+
+      '<td style="text-align:right"><span class="newrate">'+(s.newRate*100).toFixed(1)+'%</span></td>'+
+      '<td style="text-align:right"><span class="improve">'+(s.improve>0?'+':'')+(s.improve*100).toFixed(1)+'%</span></td>';
+    body.appendChild(tr);
+  });
+}
+
+function renderAdvice(p,sr,sens,target,avgBank){
+  let t='';
+  if(sr>=target){
+    t='你的退休成功率為 **'+(sr*100).toFixed(1)+'%**，已達到 '+(target*100)+'% 的安全門檻。\n\n'+
+      '在目前的規劃下，絕大多數模擬路徑都能撐到 '+p.life_expectancy+' 歲而不致資產歸零。建議維持目前的儲蓄與配置紀律，並每 1–2 年依實際薪資與支出變化重新試算一次。';
+  }else{
+    const best=sens[0];
+    t='你的退休成功率為 **'+(sr*100).toFixed(1)+'%**，低於 '+(target*100)+'% 的安全門檻';
+    if(avgBank)t+='，失敗路徑的平均破產年齡約在 **'+avgBank.toFixed(1)+' 歲**';
+    t+='。\n\n';
+    if(best&&!best.fail){
+      t+='**最省力的單一調整：'+best.label+'**——'+best.detail+'，即可把成功率提升到 '+(best.newRate*100).toFixed(1)+'%（改善 '+(best.improve*100).toFixed(1)+' 個百分點）。\n\n';
+    }else{
+      t+='單一變數在合理範圍內都難以獨力達標，建議採取**組合式調整**。\n\n';
+    }
+    // combination hint
+    const feas=sens.filter(s=>!s.fail);
+    if(feas.length>=2){
+      const second=(feas[1].key==='delay')?'延後退休':(feas[1].key==='save')?'增加儲蓄':'撙節支出';
+      t+='若不想用單一最大幅度的調整，也可以分散負擔——例如「'+feas[0].label+'」搭配小幅的「'+second+'」，兩者各做一部分，對生活的衝擊會更小。\n\n';
+    }
+    t+='提醒：本模型在退休後採保守設計（資產不再參與市場報酬），實務上若退休後仍維持部分穩健投資，成功率通常會更高。';
+  }
+  document.getElementById('adviceBody').innerHTML=t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+}
+
+/* ---- GPT-4o (optional) ---- */
+async function askGPT(){
+  const key=v('openaiKey').trim();
+  const out=document.getElementById('gptOut');out.classList.add('show');
+  if(!key){out.textContent='請先到「進階設定」填入你自己的 OpenAI API Key。';return;}
+  if(!LAST){out.textContent='請先執行一次模擬。';return;}
+  const btn=document.getElementById('gptBtn');btn.disabled=true;btn.innerHTML='<span class="spin">◐</span> GPT-4o 思考中…';
+  out.textContent='正在呼叫 GPT-4o…';
+  const {p,inst,main,sens,target}=LAST;
+  let sensTxt=sens.map(s=>'- '+s.label+'：調整後成功率 '+(s.newRate*100).toFixed(1)+'%').join('\n');
+  let bankTxt=main.bAges.length?('失敗路徑平均破產年齡約 '+(main.bAges.reduce((a,b)=>a+b,0)/main.bAges.length).toFixed(1)+' 歲。'):'所有模擬路徑均成功。';
+  const prompt='你是一位專業的台灣退休規劃顧問。以下是 TISA 退休模擬結果，請給出具體、實際、有建設性的繁體中文建議，語氣親切但專業，不要推薦任何特定金融商品。\n\n'+
+    '【使用者狀況】\n- 目前 '+p.current_age+' 歲，預計 '+p.retirement_age+' 歲退休，壽命 '+p.life_expectancy+' 歲\n- 目前資產 '+p.current_assets.toLocaleString()+' 元，每月投資 '+p.monthly_invest.toLocaleString()+' 元（年成長 '+(p.monthly_invest_growth*100).toFixed(0)+'%）\n- 退休後每月支出（現值）'+p.monthly_expense_now.toLocaleString()+' 元\n- 資產配置：股 '+(LAST.weights[0]*100)+'% / 債 '+(LAST.weights[1]*100)+'% / 現 '+(LAST.weights[2]*100)+'%\n- 勞保月領（調整後）'+Math.round(inst.monthly_li).toLocaleString()+' 元（'+p.labor_insure_start_age+' 歲起）；勞退退休時餘額 '+Math.round(inst.pension_at_retire).toLocaleString()+' 元\n\n'+
+    '【模擬結果】\n- 退休成功率：'+(main.successRate*100).toFixed(1)+'%（門檻 '+(target*100)+'%）\n- '+bankTxt+'\n\n【各變數單獨調整到門檻的最小代價】\n'+sensTxt+'\n\n請依以上資料，說明哪個調整最省力；若需組合調整請給具體組合；建議要符合台灣年輕人的現實。';
+  try{
+    const res=await fetch('https://api.openai.com/v1/chat/completions',{
+      method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
+      body:JSON.stringify({model:'gpt-4o',messages:[{role:'user',content:prompt}],max_tokens:900,temperature:0.7})
     });
-    const data = await res.json();
-
-    if (data.status === 'error') throw new Error(data.message);
-
-    renderResult(data, payload);
-    setStatus('success', `✅ 模擬完成｜GPU 後端：${gpuUrl.replace('https://','').split('.')[0]}...`);
-  } catch (e) {
-    setStatus('error', `❌ 錯誤：${e.message}`);
-    document.getElementById('result-content').innerHTML =
-      `<div style="padding:20px;color:var(--red);font-size:14px;white-space:pre-wrap">${e.message}\n\n請確認：\n1. Colab 已開啟並執行 API Server Cell\n2. ngrok URL 正確（含 https://）\n3. Colab session 未逾時</div>`;
-  } finally {
-    btn.disabled = false;
-    btn.textContent = '▶ 開始模擬（GPU）';
+    if(!res.ok){const er=await res.text();throw new Error('HTTP '+res.status+' '+er.slice(0,160));}
+    const data=await res.json();
+    out.textContent='🤖 GPT-4o 個人化建議\n\n'+(data.choices?.[0]?.message?.content||'(無回應)');
+  }catch(err){
+    out.textContent='⚠️ 無法直接從瀏覽器呼叫 GPT-4o：'+err.message+'\n\n這通常是 OpenAI 的瀏覽器 CORS 限制或金鑰／額度問題，不影響上方的「智能建議」。若期末報告需要 GPT 文字，最穩的做法是把那段建議貼到 ChatGPT 產生後再放進報告。';
   }
+  btn.disabled=false;btn.innerHTML='用 GPT-4o 生成個人化建議（選用）';
 }
-
-// ── Render result ──────────────────────────────────────────────────
-function renderResult(data, p) {
-  const rate = data.success_rate;
-  const bk   = data.bankrupt_ages || [];
-  const sens = data.sensitivity   || [];
-
-  // Risk level
-  let riskClass, riskLabel;
-  if (rate >= 0.9)      { riskClass='safe';   riskLabel='✅ 安全'; }
-  else if (rate >= 0.7) { riskClass='warn';   riskLabel='⚠️ 輕微風險'; }
-  else                  { riskClass='danger'; riskLabel='🚨 高風險'; }
-
-  // Bankrupt stats
-  let bkHtml = '';
-  if (bk.length > 0) {
-    const mean = bk.reduce((a,x)=>a+x,0)/bk.length;
-    const min  = Math.min(...bk);
-    const med  = bk.slice().sort((a,b)=>a-b)[Math.floor(bk.length/2)];
-    bkHtml = `
-      <div style="font-size:13px;color:var(--muted);margin-bottom:6px">破產路徑統計（${bk.length.toLocaleString()} 條）</div>
-      <div class="bk-stats">
-        <div class="bk-item"><div class="bv">${mean.toFixed(1)}</div><div class="bl">平均破產年齡</div></div>
-        <div class="bk-item"><div class="bv">${min.toFixed(0)}</div><div class="bl">最早破產年齡</div></div>
-        <div class="bk-item"><div class="bv">${med.toFixed(0)}</div><div class="bl">中位破產年齡</div></div>
-      </div>`;
-  } else {
-    bkHtml = `<div style="font-size:14px;color:var(--green);padding:10px 0">🎉 所有模擬路徑均成功，無破產發生</div>`;
-  }
-
-  // Sensitivity
-  const sensHtml = sens.map((item, i) => `
-    <div class="sens-item">
-      <div class="sens-rank">${i+1}</div>
-      <div>
-        <div class="s-label">${item.label}</div>
-        ${item.detail ? `<div class="s-detail">${item.detail}</div>` : ''}
-        <div class="s-rate">調整後成功率 ${(item.new_rate*100).toFixed(1)}%（改善 ${(item.improvement*100>0?'+':'')}${(item.improvement*100).toFixed(1)}%）</div>
-      </div>
-    </div>`).join('');
-
-  // AI advice
-  const aiHtml = data.ai_advice ? `
-    <div class="ai-advice">
-      <div class="ai-header">🤖 AI 綜合建議</div>
-      <div class="ai-text">${data.ai_advice}</div>
-    </div>` : '';
-
-  document.getElementById('result-content').style.display = 'flex';
-  document.getElementById('result-content').innerHTML = `
-    <div class="risk-badge ${riskClass}">${riskLabel}｜成功率 ${(rate*100).toFixed(1)}%</div>
-
-    <div class="result-top">
-      <div class="r-metric success-rate">
-        <span class="val">${(rate*100).toFixed(1)}%</span>
-        <span class="lbl">退休成功率</span>
-      </div>
-      <div class="r-metric mid-asset">
-        <span class="val">${fmt(data.lp_at_retire||0)}</span>
-        <span class="lbl">勞退帳戶餘額</span>
-      </div>
-      <div class="r-metric worst-asset">
-        <span class="val">${fmt(data.monthly_li||0)}</span>
-        <span class="lbl">勞保月領（元）</span>
-      </div>
-    </div>
-
-    ${bkHtml}
-
-    <div class="sens-title">敏感度分析 — 最小代價調整方案</div>
-    ${sensHtml}
-
-    ${aiHtml}
-  `;
-}
+checkAlloc();
 </script>
 
 </body>

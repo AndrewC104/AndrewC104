@@ -1083,7 +1083,7 @@ function runSim(){
     }
   };
   worker.onerror=(err)=>{alert('運算發生錯誤：'+err.message);btn.disabled=false;btn.innerHTML='▶ 開始模擬';};
-  worker.postMessage({p,N,weights:[s,b,c],returns:CSV_DATA,Nsens:Math.min(N,100000)});
+  worker.postMessage({p,N,weights:[s,b,c],returns:CSV_DATA,Nsens:Math.min(N,50000)});
 }
 function setProg(pct,text){document.getElementById('progBar').style.width=pct+'%';
   document.getElementById('progPct').textContent=Math.round(pct)+'%';

@@ -753,7 +753,7 @@ section.block{padding:70px 0}
       </div>
     </div>
 
-    <p class="disclaimer">※ 本工具為退休規劃的情境模擬，所有數字僅供參考，不構成投資或財務建議。模型固定使用 100,000 條 Monte Carlo 路徑，並使用內建近似歷史資料進行模擬。退休後資產不再參與市場報酬（保守設計）。</p>
+    <p class="disclaimer">※ 本工具為退休規劃的情境模擬，所有數字僅供參考，不構成投資或財務建議。模型固定使用 1,000,000 條 Monte Carlo 路徑，並使用內建近似歷史資料進行模擬。退休後資產不再參與市場報酬（保守設計）。</p>
   </div>
 </div></section>
 
@@ -768,7 +768,6 @@ section.block{padding:70px 0}
     <div class="icard"><h4>③ 退休後提領</h4><p class="muted" style="font-size:13.5px;font-weight:300">逐年扣除通膨調整後的支出、加入勞保與勞退收入，判斷各路徑是否在壽命前歸零。</p></div>
     <div class="icard"><h4>④ 成功率統計</h4><p class="muted" style="font-size:13.5px;font-weight:300">統計從未歸零的路徑比例即為退休成功率，並彙整破產年齡與終點資產分布。</p></div>
     <div class="icard"><h4>⑤ 敏感度與建議</h4><p class="muted" style="font-size:13.5px;font-weight:300">以二分搜尋找出達標的最小調整，並由智能引擎（或 GPT-4o）產生個人化建議。</p></div>
-    <div class="icard"><h4>⚡ 即時運算</h4><p class="muted" style="font-size:13.5px;font-weight:300">整個引擎用 JavaScript 重寫，跑在你的瀏覽器裡，10 萬條路徑約 1 秒完成。</p></div>
   </div>
 </div></section>
 
@@ -1065,7 +1064,7 @@ function runSim(){
     self_contrib_rate:+v('self_contrib_rate')
   };
   if(p.retirement_age<=p.current_age||p.life_expectancy<=p.retirement_age){alert('請確認：目前年齡 < 退休年齡 < 預計壽命');return;}
-  const N = 100000;
+  const N = 1000000;
   const btn=document.getElementById('runBtn');btn.disabled=true;btn.innerHTML='<span class="spin">◐</span> 模擬中…';
   document.getElementById('progWrap').classList.add('show');
   setProg(3,'啟動運算引擎…');
@@ -1084,7 +1083,7 @@ function runSim(){
     }
   };
   worker.onerror=(err)=>{alert('運算發生錯誤：'+err.message);btn.disabled=false;btn.innerHTML='▶ 開始模擬';};
-  worker.postMessage({p,N,weights:[s,b,c],returns:CSV_DATA,Nsens:Math.min(N,30000)});
+  worker.postMessage({p,N,weights:[s,b,c],returns:CSV_DATA,Nsens:Math.min(N,100000)});
 }
 function setProg(pct,text){document.getElementById('progBar').style.width=pct+'%';
   document.getElementById('progPct').textContent=Math.round(pct)+'%';
